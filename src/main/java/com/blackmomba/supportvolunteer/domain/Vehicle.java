@@ -12,24 +12,24 @@ import javax.persistence.Id;
 @NoArgsConstructor
 @Data
 @Entity
-public class Client {
+public class Vehicle {
 
     @Id
-    private String sin;
+    private String registrationNumber;
 
     @Column
-    private String lastName;
+    private String make;
 
     @Column
-    private String firstName;
+    private String model;
 
     @Column
-    private String dateOfBirth;
+    private String manufacturingYear;
 
     @Column
-    private String address;
+    private String volunteerSin;
 
     @Column
-    private long sectorId;
+    private String teamId;
 
 }

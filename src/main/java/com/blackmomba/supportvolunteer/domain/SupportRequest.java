@@ -12,24 +12,18 @@ import javax.persistence.Id;
 @NoArgsConstructor
 @Data
 @Entity
-public class Client {
+public class SupportRequest {
 
     @Id
-    private String sin;
+    private long id;
 
     @Column
-    private String lastName;
+    private String time;
 
     @Column
-    private String firstName;
+    private String supportType;
 
     @Column
-    private String dateOfBirth;
-
-    @Column
-    private String address;
-
-    @Column
-    private long sectorId;
+    private String clientSin;
 
 }

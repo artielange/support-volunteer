@@ -12,22 +12,19 @@ import javax.persistence.Id;
 @NoArgsConstructor
 @Data
 @Entity
-public class Client {
+public class Team {
 
     @Id
-    private String sin;
+    private long id;
 
     @Column
-    private String lastName;
+    private boolean available;
 
     @Column
-    private String firstName;
+    private String status;
 
     @Column
-    private String dateOfBirth;
-
-    @Column
-    private String address;
+    private String volunteerSin;
 
     @Column
     private long sectorId;

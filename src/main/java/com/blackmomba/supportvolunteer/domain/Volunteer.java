@@ -12,7 +12,7 @@ import javax.persistence.Id;
 @NoArgsConstructor
 @Data
 @Entity
-public class Client {
+public class Volunteer {
 
     @Id
     private String sin;
@@ -24,10 +24,10 @@ public class Client {
     private String firstName;
 
     @Column
-    private String dateOfBirth;
+    private String address;
 
     @Column
-    private String address;
+    private boolean available;
 
     @Column
     private long sectorId;

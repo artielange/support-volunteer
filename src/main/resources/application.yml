@@ -1,4 +1,5 @@
 spring:
+  profiles: mysql
   datasource:
     url: jdbc:mysql://ph1090-haproxy:3306
     username: jt
@@ -8,3 +9,17 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQLInnoDBDialect
+
+---
+
+spring:
+  profiles: oracle
+  datasource:
+    url: jdbc:oracle://localhost:3306
+    username: sys
+    password: dink9944
+  jpa:
+    open-in-view: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.OracleDBDialect

@@ -12,24 +12,30 @@ import javax.persistence.Id;
 @NoArgsConstructor
 @Data
 @Entity
-public class Client {
+public class SupportEvent {
 
     @Id
-    private String sin;
+    private long id;
 
     @Column
-    private String lastName;
+    private String eventDate;
 
     @Column
-    private String firstName;
+    private String startTime;
 
     @Column
-    private String dateOfBirth;
+    private String endTime;
 
     @Column
-    private String address;
+    private String supportType;
 
     @Column
-    private long sectorId;
+    private String volunteerSin;
+
+    @Column
+    private String clientSin;
+
+    @Column
+    private String teamId;
 
 }

@@ -12,24 +12,15 @@ import javax.persistence.Id;
 @NoArgsConstructor
 @Data
 @Entity
-public class Client {
+public class Sector {
 
     @Id
-    private String sin;
+    private long id;
 
     @Column
-    private String lastName;
+    private String name;
 
     @Column
-    private String firstName;
-
-    @Column
-    private String dateOfBirth;
-
-    @Column
-    private String address;
-
-    @Column
-    private long sectorId;
+    private String postalCode;
 
 }
