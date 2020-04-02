@@ -17,6 +17,7 @@
         <lombok.version>1.18.12</lombok.version>
         <mysql.jdbc.version>8.0.19</mysql.jdbc.version>
         <oracle.jdbc.version>19.3.0.0</oracle.jdbc.version>
+        <jaxb.version>2.3.2</jaxb.version>
     </properties>
 
     <repositories>
@@ -53,7 +54,6 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
@@ -65,6 +65,18 @@
             <artifactId>ojdbc8</artifactId>
             <version>${oracle.jdbc.version}</version>
             <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>jakarta.xml.bind</groupId>
+            <artifactId>jakarta.xml.bind-api</artifactId>
+            <version>${jaxb.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.glassfish.jaxb</groupId>
+            <artifactId>jaxb-runtime</artifactId>
+            <version>${jaxb.version}</version>
         </dependency>
 
     </dependencies>
