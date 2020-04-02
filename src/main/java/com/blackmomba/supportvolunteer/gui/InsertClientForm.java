@@ -13,16 +13,11 @@ public class InsertClientForm extends JFrame implements ActionListener {
 
     private ClientRepository clientRepository;
 
-    private JFrame jFrame;
-
     public InsertClientForm(ClientRepository clientRepository) {
         this.clientRepository = clientRepository;
-        init();
-    }
-
-    private void init() {
         // Create the frame
-        jFrame = getGuiFrame();
+        this.setTitle("Ajouter un client");
+        this.setLayout(null);
 
         // Create the labels
         JLabel sinLabel = getLabel("NAS:", "sinLabel");
@@ -64,40 +59,26 @@ public class InsertClientForm extends JFrame implements ActionListener {
         address.setBounds(xPosition + controlLength, yPosition, controlLength, controlHeight);
 
         // Create the buttons
-        JButton addButton = getButton("Ajouter");
-        JButton cancelButton = getButton("Annuler");
+        JButton addButton = getButton("Ajouter", "add",
+                375, 300, 100, 30);
+        JButton cancelButton = getButton("Annuler", "cancel",
+                475, 300, 100, 30);
 
-        addButton.setActionCommand("add");
-        cancelButton.setActionCommand("cancel");
+        this.getContentPane().add(sinLabel);
+        this.getContentPane().add(sin);
+        this.getContentPane().add(firstNameLabel);
+        this.getContentPane().add(firstName);
+        this.getContentPane().add(lastNameLabel);
+        this.getContentPane().add(lastName);
+        this.getContentPane().add(dateOfBirthLabel);
+        this.getContentPane().add(dateOfBirth);
+        this.getContentPane().add(addressLabel);
+        this.getContentPane().add(address);
 
-        addButton.addActionListener(this);
-        cancelButton.addActionListener(this);
+        this.getContentPane().add(addButton);
+        this.getContentPane().add(cancelButton);
 
-        addButton.setBounds(375, 300, 100, 30);
-        cancelButton.setBounds(475, 300, 100, 30);
-
-        jFrame.getContentPane().add(sinLabel);
-        jFrame.getContentPane().add(sin);
-        jFrame.getContentPane().add(firstNameLabel);
-        jFrame.getContentPane().add(firstName);
-        jFrame.getContentPane().add(lastNameLabel);
-        jFrame.getContentPane().add(lastName);
-        jFrame.getContentPane().add(dateOfBirthLabel);
-        jFrame.getContentPane().add(dateOfBirth);
-        jFrame.getContentPane().add(addressLabel);
-        jFrame.getContentPane().add(address);
-
-        jFrame.getContentPane().add(addButton);
-        jFrame.getContentPane().add(cancelButton);
-
-        jFrame.pack();
-    }
-
-    private JFrame getGuiFrame() {
-        JFrame jFrame = new JFrame("Gestion des vols pour la compagnie ");
-        jFrame.setPreferredSize(new Dimension(678, 382));
-        jFrame.setLayout(null);
-        return jFrame;
+        this.pack();
     }
 
     private JLabel getLabel(String caption, String name) {
@@ -114,12 +95,14 @@ public class InsertClientForm extends JFrame implements ActionListener {
         return jTextField;
     }
 
-    private JButton getButton(String caption) {
+    private JButton getButton(String caption, String actionCommand, int x, int y, int width, int height) {
         JButton jButton = new JButton(caption);
         jButton.setFont(new Font("Serif", Font.PLAIN, 14));
+        jButton.setActionCommand(actionCommand);
+        jButton.addActionListener(this);
+        jButton.setBounds(x, y, width, height);
         return jButton;
     }
-
     @Override
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()) {
@@ -130,9 +113,4 @@ public class InsertClientForm extends JFrame implements ActionListener {
         }
     }
 
-    public void showForm() {
-        if (jFrame != null && !jFrame.isShowing()) {
-            jFrame.setVisible(true);
-        }
-    }
 }

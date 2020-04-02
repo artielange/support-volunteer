@@ -10,33 +10,25 @@ import java.awt.event.ActionListener;
 @Service
 public class StartupForm extends JFrame implements ActionListener {
 
-    public StartupForm() {
-        init();
-    }
+    private InsertClientForm insertClientForm;
 
-    private void init() {
+    public StartupForm(
+            InsertClientForm insertClientForm) {
+        this.insertClientForm = insertClientForm;
         // Create the frame
         this.setTitle("Gestion des benevoles pour l'ille de Montreal");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new BoxLayout(this.getContentPane(), BoxLayout.Y_AXIS));
 
         // Create the buttons
-        JButton addCustomer = getButton("Ajouter un client","addCustomer",
-                375, 300, 100, 30);
-        JButton addFeedback = getButton("Ajouter un commentaire", "addFeedback",
-                375, 300, 100, 30);
-        JButton addSupportEvent = getButton("Ajouter un accompagnement", "addSupportEvent",
-                375, 300, 100, 30);
-        JButton addSupportRequest = getButton("Ajouter une demande", "addSupportRequest",
-                375, 300, 100, 30);
-        JButton addTeam = getButton("Creer un equipe", "addTeam",
-                375, 300, 100, 30);
-        JButton addVehicle = getButton("Ajouter un vehicule", "addVehicle",
-                375, 300, 100, 30);
-        JButton addVolunteer = getButton("Ajouter un benevole", "addVolunteer",
-                375, 300, 100, 30);
-        JButton cancelButton = getButton("Annuler", "cancel",
-                375, 300, 100, 30);
+        JButton addCustomer = getButton("Ajouter un client","addCustomer");
+        JButton addFeedback = getButton("Ajouter un commentaire", "addFeedback");
+        JButton addSupportEvent = getButton("Ajouter un accompagnement", "addSupportEvent");
+        JButton addSupportRequest = getButton("Ajouter une demande", "addSupportRequest");
+        JButton addTeam = getButton("Creer un equipe", "addTeam");
+        JButton addVehicle = getButton("Ajouter un vehicule", "addVehicle");
+        JButton addVolunteer = getButton("Ajouter un benevole", "addVolunteer");
+        JButton cancelButton = getButton("Annuler", "cancel");
 
         this.getContentPane().add(addCustomer);
         this.getContentPane().add(addFeedback);
@@ -51,7 +43,7 @@ public class StartupForm extends JFrame implements ActionListener {
         this.setVisible(true);
     }
 
-    private JButton getButton(String caption, String actionCommand, int x, int y, int width, int height) {
+    private JButton getButton(String caption, String actionCommand) {
         JButton jButton = new JButton(caption);
         jButton.setFont(new Font("Serif", Font.PLAIN, 14));
         jButton.setActionCommand(actionCommand);
@@ -60,13 +52,27 @@ public class StartupForm extends JFrame implements ActionListener {
         return jButton;
     }
 
-
     @Override
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()) {
             case "addCustomer":
+                this.setVisible(false);
+                insertClientForm.setVisible(true);
+                break;
+            case "addFeedback":
+                break;
+            case "addSupportEvent":
+                break;
+            case "addSupportRequest":
+                break;
+            case "addTeam":
+                break;
+            case "addVehicle":
+                break;
+            case "addVolunteer":
                 break;
             case "cancel":
+                System.exit(0);
                 break;
         }
     }
