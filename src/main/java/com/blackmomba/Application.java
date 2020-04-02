@@ -1,6 +1,6 @@
 package com.blackmomba;
 
-import com.blackmomba.supportvolunteer.gui.InsertClientForm;
+import com.blackmomba.supportvolunteer.gui.StartupForm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -9,7 +9,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 @RequiredArgsConstructor
 public class Application {
 
-    private final InsertClientForm insertClientForm;
+    private final StartupForm startupForm;
 
     public static void main(String[] args) {
         SpringApplicationBuilder builder = new SpringApplicationBuilder(Application.class);

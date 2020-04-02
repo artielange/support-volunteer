@@ -91,13 +91,11 @@ public class InsertClientForm extends JFrame implements ActionListener {
         jFrame.getContentPane().add(cancelButton);
 
         jFrame.pack();
-        jFrame.setVisible(true);
     }
 
     private JFrame getGuiFrame() {
         JFrame jFrame = new JFrame("Gestion des vols pour la compagnie ");
         jFrame.setPreferredSize(new Dimension(678, 382));
-        jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jFrame.setLayout(null);
         return jFrame;
     }
