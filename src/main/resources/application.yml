@@ -1,5 +1,5 @@
 spring:
-  datasouruce:
+  datasource:
     url: jdbc:mysql://ph1090-haproxy:3306
     username: jt
     password: dink9944
