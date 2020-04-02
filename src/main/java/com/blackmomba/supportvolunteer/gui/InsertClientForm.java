@@ -13,6 +13,8 @@ public class InsertClientForm extends JFrame implements ActionListener {
 
     private ClientRepository clientRepository;
 
+    private JFrame jFrame;
+
     public InsertClientForm(ClientRepository clientRepository) {
         this.clientRepository = clientRepository;
         init();
@@ -20,7 +22,7 @@ public class InsertClientForm extends JFrame implements ActionListener {
 
     private void init() {
         // Create the frame
-        JFrame jFrame = getGuiFrame();
+        jFrame = getGuiFrame();
 
         // Create the labels
         JLabel sinLabel = getLabel("NAS:", "sinLabel");
@@ -127,6 +129,12 @@ public class InsertClientForm extends JFrame implements ActionListener {
                 break;
             case "cancel":
                 break;
+        }
+    }
+
+    public void showForm() {
+        if (jFrame != null && !jFrame.isShowing()) {
+            jFrame.setVisible(true);
         }
     }
 }

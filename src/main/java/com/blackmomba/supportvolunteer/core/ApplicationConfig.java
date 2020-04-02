@@ -1,7 +1,7 @@
 package com.blackmomba.supportvolunteer.core;
 
-import org.springframework.context.annotation.Configuration;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 
-@Configuration
+@ConfigurationProperties
 public class ApplicationConfig {
 }

@@ -1,0 +1,10 @@
+spring:
+  datasouruce:
+    url: jdbc:mysql://ph1090-haproxy:3306
+    username: jt
+    password: dink9944
+  jpa:
+    open-in-view: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLInnoDBDialect
