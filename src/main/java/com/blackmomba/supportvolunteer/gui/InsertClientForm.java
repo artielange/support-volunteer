@@ -17,68 +17,100 @@ public class InsertClientForm extends JFrame implements ActionListener {
         this.clientRepository = clientRepository;
         // Create the frame
         this.setTitle("Ajouter un client");
-        this.setLayout(null);
+        SpringLayout springLayout = new SpringLayout();
+        this.setLayout(springLayout);
 
-        // Create the labels
-        JLabel sinLabel = getLabel("NAS:", "sinLabel");
-        JLabel firstNameLabel = getLabel("Prenom:", "firstNameLabel");
-        JLabel lastNameLabel = getLabel("Nom:", "lastNameLabel");
-        JLabel dateOfBirthLabel = getLabel("Date de naisssance:", "dateOfBirthLabel");
-        JLabel addressLabel = getLabel("Adresse:", "addressLabel");
+        String[] labels = {"Name: ", "Fax: ", "Email: ", "Address: "};
+        int numPairs = labels.length;
 
-        // Create the TextBoxes
-        JTextField sin = getTextField("sinTextField");
-        JTextField firstName = getTextField("firstNameTextField");
-        JTextField lastName = getTextField("lastNameTextField");
-        JTextField dateOfBirth = getTextField("dateOfBirthTextField");
-        JTextField address = getTextField("addressTextField");
+        //Create and populate the panel.
+        JPanel p = new JPanel(new SpringLayout());
+        for (String label : labels) {
+            JLabel l = new JLabel(label, JLabel.TRAILING);
+            p.add(l);
+            JTextField textField = new JTextField(10);
+            l.setLabelFor(textField);
+            p.add(textField);
+        }
 
-        int controlLength = 260;
-        int controlHeight = 30;
+        //Lay out the panel.
+        SpringUtilities.makeCompactGrid(p,
+                numPairs, 2, //rows, cols
+                6, 6,        //initX, initY
+                6, 6);       //xPad, yPad
 
-        int xPosition = 60;
-        int yPosition = 50;
+        //Create and set up the window.
 
-        sinLabel.setBounds(xPosition, yPosition, controlLength, controlHeight);
-        sin.setBounds(xPosition + controlLength, yPosition, controlLength, controlHeight);
+        //Set up the content pane.
+        p.setOpaque(true);  //content panes must be opaque
+        this.setContentPane(p);
 
-        yPosition += 50;
-        firstNameLabel.setBounds(xPosition, yPosition, controlLength, controlHeight);
-        firstName.setBounds(xPosition + controlLength, yPosition, controlLength, controlHeight);
-
-        yPosition += 50;
-        lastNameLabel.setBounds(xPosition, yPosition, controlLength, controlHeight);
-        lastName.setBounds(xPosition + controlLength, yPosition, controlLength, controlHeight);
-
-        yPosition += 50;
-        dateOfBirthLabel.setBounds(xPosition, yPosition, controlLength, controlHeight);
-        dateOfBirth.setBounds(xPosition + controlLength, yPosition, controlLength, controlHeight);
-
-        yPosition += 50;
-        addressLabel.setBounds(xPosition, yPosition, controlLength, controlHeight);
-        address.setBounds(xPosition + controlLength, yPosition, controlLength, controlHeight);
-
-        // Create the buttons
-        JButton addButton = getButton("Ajouter", "add",
-                375, 300, 100, 30);
-        JButton cancelButton = getButton("Annuler", "cancel",
-                475, 300, 100, 30);
-
-        this.getContentPane().add(sinLabel);
-        this.getContentPane().add(sin);
-        this.getContentPane().add(firstNameLabel);
-        this.getContentPane().add(firstName);
-        this.getContentPane().add(lastNameLabel);
-        this.getContentPane().add(lastName);
-        this.getContentPane().add(dateOfBirthLabel);
-        this.getContentPane().add(dateOfBirth);
-        this.getContentPane().add(addressLabel);
-        this.getContentPane().add(address);
-
-        this.getContentPane().add(addButton);
-        this.getContentPane().add(cancelButton);
-
+        //Display the window.
         this.pack();
+
+
+
+//        this.setLayout(null);
+//        // Create the labels
+//        JLabel sinLabel = getLabel("NAS:", "sinLabel");
+//        JLabel firstNameLabel = getLabel("Prenom:", "firstNameLabel");
+//        JLabel lastNameLabel = getLabel("Nom:", "lastNameLabel");
+//        JLabel dateOfBirthLabel = getLabel("Date de naisssance:", "dateOfBirthLabel");
+//        JLabel addressLabel = getLabel("Adresse:", "addressLabel");
+//
+//        // Create the TextBoxes
+//        JTextField sin = getTextField("sinTextField");
+//        JTextField firstName = getTextField("firstNameTextField");
+//        JTextField lastName = getTextField("lastNameTextField");
+//        JTextField dateOfBirth = getTextField("dateOfBirthTextField");
+//        JTextField address = getTextField("addressTextField");
+//
+//        int controlLength = 260;
+//        int controlHeight = 30;
+//
+//        int xPosition = 60;
+//        int yPosition = 50;
+//
+//        sinLabel.setBounds(xPosition, yPosition, controlLength, controlHeight);
+//        sin.setBounds(xPosition + controlLength, yPosition, controlLength, controlHeight);
+//
+//        yPosition += 50;
+//        firstNameLabel.setBounds(xPosition, yPosition, controlLength, controlHeight);
+//        firstName.setBounds(xPosition + controlLength, yPosition, controlLength, controlHeight);
+//
+//        yPosition += 50;
+//        lastNameLabel.setBounds(xPosition, yPosition, controlLength, controlHeight);
+//        lastName.setBounds(xPosition + controlLength, yPosition, controlLength, controlHeight);
+//
+//        yPosition += 50;
+//        dateOfBirthLabel.setBounds(xPosition, yPosition, controlLength, controlHeight);
+//        dateOfBirth.setBounds(xPosition + controlLength, yPosition, controlLength, controlHeight);
+//
+//        yPosition += 50;
+//        addressLabel.setBounds(xPosition, yPosition, controlLength, controlHeight);
+//        address.setBounds(xPosition + controlLength, yPosition, controlLength, controlHeight);
+//
+//        // Create the buttons
+//        JButton addButton = getButton("Ajouter", "add",
+//                375, 300, 100, 30);
+//        JButton cancelButton = getButton("Annuler", "cancel",
+//                475, 300, 100, 30);
+//
+//        this.getContentPane().add(sinLabel);
+//        this.getContentPane().add(sin);
+//        this.getContentPane().add(firstNameLabel);
+//        this.getContentPane().add(firstName);
+//        this.getContentPane().add(lastNameLabel);
+//        this.getContentPane().add(lastName);
+//        this.getContentPane().add(dateOfBirthLabel);
+//        this.getContentPane().add(dateOfBirth);
+//        this.getContentPane().add(addressLabel);
+//        this.getContentPane().add(address);
+//
+//        this.getContentPane().add(addButton);
+//        this.getContentPane().add(cancelButton);
+
+        //this.pack();
     }
 
     private JLabel getLabel(String caption, String name) {

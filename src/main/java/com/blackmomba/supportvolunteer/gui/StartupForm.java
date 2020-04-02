@@ -56,7 +56,6 @@ public class StartupForm extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()) {
             case "addCustomer":
-                this.setVisible(false);
                 insertClientForm.setVisible(true);
                 break;
             case "addFeedback":
