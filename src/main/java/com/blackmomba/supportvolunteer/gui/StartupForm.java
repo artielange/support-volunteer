@@ -11,15 +11,29 @@ import java.awt.event.ActionListener;
 public class StartupForm extends JFrame implements ActionListener {
 
     private AddClientForm addClientForm;
+    private AddFeedbackForm addFeedbackForm;
+    private AddSupportEventForm addSupportEventForm;
+    private AddSupportRequestForm addSupportRequestForm;
+    private AddVehicleForm addVehicleForm;
+    private AddVolunteerForm addVolunteerForm;
 
     public StartupForm(
-            AddClientForm addClientForm) {
+            AddClientForm addClientForm,
+            AddFeedbackForm addFeedbackForm,
+            AddSupportEventForm addSupportEventForm,
+            AddSupportRequestForm addSupportRequestForm,
+            AddVehicleForm addVehicleForm,
+            AddVolunteerForm addVolunteerForm) {
         this.addClientForm = addClientForm;
+        this.addFeedbackForm = addFeedbackForm;
+        this.addSupportEventForm = addSupportEventForm;
+        this.addSupportRequestForm = addSupportRequestForm;
+        this.addVehicleForm = addVehicleForm;
+        this.addVolunteerForm = addVolunteerForm;
         // Create the frame
         this.setTitle("Gestion des benevoles pour l'ille de Montreal");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new BoxLayout(this.getContentPane(), BoxLayout.Y_AXIS));
-
         // Create the buttons
         JButton addCustomer = getButton("Ajouter un client","addCustomer");
         JButton addFeedback = getButton("Ajouter un commentaire", "addFeedback");
@@ -29,7 +43,6 @@ public class StartupForm extends JFrame implements ActionListener {
         JButton addVehicle = getButton("Ajouter un vehicule", "addVehicle");
         JButton addVolunteer = getButton("Ajouter un benevole", "addVolunteer");
         JButton cancelButton = getButton("Annuler", "cancel");
-
         this.getContentPane().add(addCustomer);
         this.getContentPane().add(addFeedback);
         this.getContentPane().add(addSupportEvent);
@@ -38,7 +51,6 @@ public class StartupForm extends JFrame implements ActionListener {
         this.getContentPane().add(addVehicle);
         this.getContentPane().add(addVolunteer);
         this.getContentPane().add(cancelButton);
-
         this.pack();
         this.setVisible(true);
     }
@@ -59,16 +71,21 @@ public class StartupForm extends JFrame implements ActionListener {
                 addClientForm.setVisible(true);
                 break;
             case "addFeedback":
+                addFeedbackForm.setVisible(true);
                 break;
             case "addSupportEvent":
+                addSupportEventForm.setVisible(true);
                 break;
             case "addSupportRequest":
+                addSupportRequestForm.setVisible(true);
                 break;
             case "addTeam":
                 break;
             case "addVehicle":
+                addVehicleForm.setVisible(true);
                 break;
             case "addVolunteer":
+                addVolunteerForm.setVisible(true);
                 break;
             case "cancel":
                 System.exit(0);

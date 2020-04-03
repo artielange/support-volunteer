@@ -8,7 +8,7 @@ DROP TABLE accompagnement;
 DROP TABLE commentaire;
 
 CREATE TABLE secteur (
-    NumSecteur INTEGER,
+    NumSecteur INTEGER NOT NULL AUTO_INCREMENT,
     NomSecteur VARCHAR(45),
     CodePostal VARCHAR(7),
     CONSTRAINT pk_Secteur_NumSecteur PRIMARY KEY(NumSecteur)
@@ -37,7 +37,7 @@ CREATE TABLE benevole (
 );
 
 CREATE TABLE equipe (
-    IDEquipe INTEGER NOT NULL,
+    IDEquipe INTEGER NOT NULL AUTO_INCREMENT,
     DispoEquipe TINYINT,
     StatutEquipe TINYINT,
     NASBenevole VARCHAR(11),
@@ -48,7 +48,7 @@ CREATE TABLE equipe (
 );
 
 CREATE TABLE demande (
-    NumDemande INTEGER NOT NULL,
+    NumDemande INTEGER NOT NULL AUTO_INCREMENT,
     HeureDemande VARCHAR(45),
     TypeAccomp VARCHAR(45),
     NASClient VARCHAR(11),
@@ -69,7 +69,7 @@ CREATE TABLE voiture (
 );
 
 CREATE TABLE accompagnement (
-    IDAccomp INTEGER,
+    IDAccomp INTEGER NOT NULL AUTO_INCREMENT,
     DateAccomp VARCHAR(10),
     HeureDebutAccomp VARCHAR(8),
     HeureFinAccomp VARCHAR(8),
@@ -84,7 +84,7 @@ CREATE TABLE accompagnement (
 );
 
 CREATE TABLE commentaire (
-    NumCommentaire INTEGER,
+    NumCommentaire INTEGER NOT NULL AUTO_INCREMENT,
     DateCommentaire VARCHAR(10),
     HeureCommentaiClientNASClientre VARCHAR(8),
     TypeCommentaire VARCHAR(45),

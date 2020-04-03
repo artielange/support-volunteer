@@ -4,9 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -15,7 +13,8 @@ import javax.persistence.Id;
 public class Feedback {
 
     @Id
-    @Column(name = "NumCommentaire")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "NumCommentaire", updatable = false, nullable = false)
     private Long id;
 
     @Column(name = "DateCommentaire")

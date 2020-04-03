@@ -1,9 +1,9 @@
 package com.blackmomba.supportvolunteer.gui;
 
-import com.blackmomba.supportvolunteer.data.ClientRepository;
 import com.blackmomba.supportvolunteer.data.SectorRepository;
-import com.blackmomba.supportvolunteer.domain.Client;
+import com.blackmomba.supportvolunteer.data.VolunteerRepository;
 import com.blackmomba.supportvolunteer.domain.Sector;
+import com.blackmomba.supportvolunteer.domain.Volunteer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -15,20 +15,22 @@ import java.awt.event.ActionListener;
 import java.util.HashMap;
 
 @Service
-public class AddClientForm extends JFrame implements ActionListener {
+public class AddVolunteerForm extends JFrame implements ActionListener {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    private ClientRepository clientRepository;
+    private VolunteerRepository volunteerRepository;
+    private SectorRepository sectorRepository;
 
     private HashMap<String, Component> componentHashMap;
 
-    public AddClientForm(
-            ClientRepository clientRepository,
+    public AddVolunteerForm(
+            VolunteerRepository volunteerRepository,
             SectorRepository sectorRepository) {
-        this.clientRepository = clientRepository;
+        this.volunteerRepository = volunteerRepository;
+        this.sectorRepository = sectorRepository;
         this.componentHashMap = new HashMap<>();
-        this.setTitle("Ajouter un client");
+        this.setTitle("Ajouter un Benevole");
         SpringLayout springLayout = new SpringLayout();
         this.setLayout(springLayout);
         String[] labels = {"NAS: ", "Nom: ", "Prenom: ", "Date de naissance: ", "Address: "};
@@ -67,7 +69,7 @@ public class AddClientForm extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()) {
             case "add":
-                addClient();
+                addVolunteer();
                 this.setVisible(false);
                 break;
             case "cancel":
@@ -76,17 +78,17 @@ public class AddClientForm extends JFrame implements ActionListener {
         }
     }
 
-    private void addClient() {
+    private void addVolunteer() {
         Component component = componentHashMap.getOrDefault("sector", null);
         ComboItem comboItem = (ComboItem) ((JComboBox<?>) component).getSelectedItem();
         if (comboItem != null) {
             try {
-                clientRepository.save(new Client(
+                volunteerRepository.save(new Volunteer(
                         getTextFieldValueByName("sin"),
                         getTextFieldValueByName("lastName"),
                         getTextFieldValueByName("firstName"),
-                        getTextFieldValueByName("dob"),
                         getTextFieldValueByName("address"),
+                        true,
                         comboItem.getKey()));
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(

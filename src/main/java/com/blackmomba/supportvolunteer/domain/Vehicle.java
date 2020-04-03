@@ -31,6 +31,6 @@ public class Vehicle {
     private String volunteerSin;
 
     @Column(name = "IDEquipe")
-    private String teamId;
+    private Long teamId;
 
 }
