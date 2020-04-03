@@ -1,11 +1,11 @@
-DROP TABLE secteur;
-DROP TABLE client;
-DROP TABLE benevole;
-DROP TABLE equipe;
 DROP TABLE demande;
-DROP TABLE voiture;
 DROP TABLE accompagnement;
 DROP TABLE commentaire;
+DROP TABLE client;
+DROP TABLE voiture;
+DROP TABLE equipe;
+DROP TABLE benevole;
+DROP TABLE secteur;
 
 CREATE TABLE secteur (
     NumSecteur INTEGER NOT NULL AUTO_INCREMENT,
