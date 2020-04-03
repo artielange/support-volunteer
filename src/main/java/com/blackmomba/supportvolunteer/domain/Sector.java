@@ -11,16 +11,17 @@ import javax.persistence.Id;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Entity
+@Entity(name = "secteur")
 public class Sector {
 
     @Id
-    private long id;
+    @Column(name = "NumSecteur")
+    private Long id;
 
-    @Column
+    @Column(name = "NomSecteur")
     private String name;
 
-    @Column
+    @Column(name = "CodePostal")
     private String postalCode;
 
 }

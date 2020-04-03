@@ -1,14 +1,15 @@
 spring:
   profiles: mysql
   datasource:
-    url: jdbc:mysql://ph1090-haproxy:3306
+    url: jdbc:mysql://ph1090-haproxy:3306/organisme_ift2821
     username: jt
     password: dink9944
   jpa:
     open-in-view: false
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.MySQLInnoDBDialect
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      dialect: org.hibernate.dialect.MySQLInnoDBDialect
 
 ---
 

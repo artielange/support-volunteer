@@ -11,31 +11,32 @@ import javax.persistence.Id;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Entity
+@Entity(name = "accompagnement")
 public class SupportEvent {
 
     @Id
-    private long id;
+    @Column(name = "IDAccomp")
+    private Long id;
 
-    @Column
+    @Column(name = "DateAccomp")
     private String eventDate;
 
-    @Column
+    @Column(name = "HeureDebutAccomp")
     private String startTime;
 
-    @Column
+    @Column(name = "HeureFinAccomp")
     private String endTime;
 
-    @Column
+    @Column(name = "TypeAccomp")
     private String supportType;
 
-    @Column
+    @Column(name = "NASBenevole")
     private String volunteerSin;
 
-    @Column
+    @Column(name = "NASClient")
     private String clientSin;
 
-    @Column
+    @Column(name = "IDEquipe")
     private String teamId;
 
 }

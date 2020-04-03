@@ -11,22 +11,23 @@ import javax.persistence.Id;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Entity
+@Entity(name = "commentaire")
 public class Feedback {
 
     @Id
-    private long id;
+    @Column(name = "NumCommentaire")
+    private Long id;
 
-    @Column
+    @Column(name = "DateCommentaire")
     private String feedbackDate;
 
-    @Column
+    @Column(name = "HeureCommentaiClientNASClientre")
     private String feedbackTime;
 
-    @Column
+    @Column(name = "TypeCommentaire")
     private String feedbackType;
 
-    @Column
+    @Column(name = "NASClient")
     private String clientSin;
 
 }

@@ -11,25 +11,26 @@ import javax.persistence.Id;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Entity
+@Entity(name = "benevole")
 public class Volunteer {
 
     @Id
+    @Column(name = "NASBenevole")
     private String sin;
 
-    @Column
+    @Column(name = "NomBenevole")
     private String lastName;
 
-    @Column
+    @Column(name = "PrenomBenevole")
     private String firstName;
 
-    @Column
+    @Column(name = "AdresseBenevole")
     private String address;
 
-    @Column
+    @Column(name = "DispoBenevole")
     private boolean available;
 
-    @Column
-    private long sectorId;
+    @Column(name = "NumSecteur")
+    private Long sectorId;
 
 }

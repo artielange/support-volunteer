@@ -1,9 +1,19 @@
-INSERT INTO Secteur (1, 'Ahuntsic-Cartierville', '')
-INSERT INTO Secteur (1, 'Anjou', '')
-INSERT INTO Secteur (1, 'Côte-des-Neiges–Notre-Dame-de-Grâce', '')
-INSERT INTO Secteur (1, 'LaSalle', '')
-INSERT INTO Secteur (1, 'Lachine', '')
-INSERT INTO Secteur (1, 'Le Plateau-Mont-Royal', '')
-INSERT INTO Secteur (1, 'Le Sud-Ouest', '')
-INSERT INTO Secteur (1, 'L’Île-Bizard–Sainte-Geneviève', '')
-INSERT INTO Secteur (1, 'L’Île-Bizard–Sainte-Geneviève', '')
+INSERT INTO secteur VALUES (1, 'Ahuntsic-Cartierville', '');
+INSERT INTO secteur VALUES (2, 'Anjou', '');
+INSERT INTO secteur VALUES (3, 'Côte-des-Neiges–Notre-Dame-de-Grâce', '');
+INSERT INTO secteur VALUES (4, 'LaSalle', '');
+INSERT INTO secteur VALUES (5, 'Lachine', '');
+INSERT INTO secteur VALUES (6, 'Le Plateau-Mont-Royal', '');
+INSERT INTO secteur VALUES (7, 'Le Sud-Ouest', '');
+INSERT INTO secteur VALUES (8, 'L’Île-Bizard–Sainte-Geneviève', '');
+INSERT INTO secteur VALUES (9, 'Mercier–Hochelaga-Maisonneuve', '');
+INSERT INTO secteur VALUES (10, 'Montréal-Nord', '');
+INSERT INTO secteur VALUES (11, 'Outremont', '');
+INSERT INTO secteur VALUES (12, 'Pierrefonds-Roxboro', '');
+INSERT INTO secteur VALUES (13, 'Rivière-des-Prairies–Pointe-aux-Trembles', '');
+INSERT INTO secteur VALUES (14, 'Rosemont–La Petite-Patrie', '');
+INSERT INTO secteur VALUES (15, 'Saint-Laurent', '');
+INSERT INTO secteur VALUES (16, 'Saint-Léonard', '');
+INSERT INTO secteur VALUES (17, 'Verdun', '');
+INSERT INTO secteur VALUES (18, 'Ville-Marie', '');
+INSERT INTO secteur VALUES (19, 'Villeray–Saint-Michel–Parc-Extension', '');

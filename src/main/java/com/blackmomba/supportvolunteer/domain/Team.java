@@ -11,22 +11,23 @@ import javax.persistence.Id;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Entity
+@Entity(name = "equipe")
 public class Team {
 
     @Id
-    private long id;
+    @Column(name = "IDEquipe")
+    private Long id;
 
-    @Column
+    @Column(name = "DispoEquipe")
     private boolean available;
 
-    @Column
+    @Column(name = "StatutEquipe")
     private String status;
 
-    @Column
+    @Column(name = "NASBenevole")
     private String volunteerSin;
 
-    @Column
-    private long sectorId;
+    @Column(name = "NumSecteur")
+    private Long sectorId;
 
 }

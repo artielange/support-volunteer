@@ -11,25 +11,26 @@ import javax.persistence.Id;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Entity
+@Entity(name = "client")
 public class Client {
 
     @Id
+    @Column(name = "NASClient")
     private String sin;
 
-    @Column
+    @Column(name = "NomClient")
     private String lastName;
 
-    @Column
+    @Column(name = "PrenomClient")
     private String firstName;
 
-    @Column
+    @Column(name = "DateNaissance")
     private String dateOfBirth;
 
-    @Column
+    @Column(name = "AdresseClient")
     private String address;
 
-    @Column
+    @Column(name = "NumSecteur")
     private long sectorId;
 
 }

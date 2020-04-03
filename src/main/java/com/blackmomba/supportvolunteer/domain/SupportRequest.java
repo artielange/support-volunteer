@@ -11,19 +11,20 @@ import javax.persistence.Id;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Entity
+@Entity(name = "demande")
 public class SupportRequest {
 
     @Id
-    private long id;
+    @Column(name = "NumDemande")
+    private Long id;
 
-    @Column
+    @Column(name = "HeureDemande")
     private String time;
 
-    @Column
+    @Column(name = "TypeAccomp")
     private String supportType;
 
-    @Column
+    @Column(name = "NASClient")
     private String clientSin;
 
 }

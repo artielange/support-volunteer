@@ -11,25 +11,26 @@ import javax.persistence.Id;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Entity
+@Entity(name = "voiture")
 public class Vehicle {
 
     @Id
+    @Column(name = "NoImmatriculation")
     private String registrationNumber;
 
-    @Column
+    @Column(name = "MarqueVehicule")
     private String make;
 
-    @Column
+    @Column(name = "AnneeVehicule")
     private String model;
 
-    @Column
+    @Column(name = "TypeVehicule")
     private String manufacturingYear;
 
-    @Column
+    @Column(name = "NASBenevole")
     private String volunteerSin;
 
-    @Column
+    @Column(name = "IDEquipe")
     private String teamId;
 
 }

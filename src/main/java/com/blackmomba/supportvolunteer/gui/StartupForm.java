@@ -10,11 +10,11 @@ import java.awt.event.ActionListener;
 @Service
 public class StartupForm extends JFrame implements ActionListener {
 
-    private InsertClientForm insertClientForm;
+    private AddClientForm addClientForm;
 
     public StartupForm(
-            InsertClientForm insertClientForm) {
-        this.insertClientForm = insertClientForm;
+            AddClientForm addClientForm) {
+        this.addClientForm = addClientForm;
         // Create the frame
         this.setTitle("Gestion des benevoles pour l'ille de Montreal");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -56,7 +56,7 @@ public class StartupForm extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()) {
             case "addCustomer":
-                insertClientForm.setVisible(true);
+                addClientForm.setVisible(true);
                 break;
             case "addFeedback":
                 break;
