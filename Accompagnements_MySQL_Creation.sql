@@ -1,11 +1,11 @@
-DROP TABLE demande;
-DROP TABLE accompagnement;
-DROP TABLE commentaire;
-DROP TABLE client;
-DROP TABLE voiture;
-DROP TABLE equipe;
-DROP TABLE benevole;
-DROP TABLE secteur;
+DROP TABLE IF EXISTS demande;
+DROP TABLE IF EXISTS accompagnement;
+DROP TABLE IF EXISTS commentaire;
+DROP TABLE IF EXISTS client;
+DROP TABLE IF EXISTS voiture;
+DROP TABLE IF EXISTS equipe;
+DROP TABLE IF EXISTS benevole;
+DROP TABLE IF EXISTS secteur;
 
 CREATE TABLE secteur (
     NumSecteur INTEGER NOT NULL AUTO_INCREMENT,
@@ -40,11 +40,13 @@ CREATE TABLE equipe (
     IDEquipe INTEGER NOT NULL AUTO_INCREMENT,
     DispoEquipe TINYINT,
     StatutEquipe TINYINT,
-    NASBenevole VARCHAR(11),
+    NASBenevole1 VARCHAR(11),
+    NASBenevole2 VARCHAR(11),
     NumSecteur INTEGER,
     CONSTRAINT pk_Equipe_IDEquipe PRIMARY KEY(IDEquipe),
     CONSTRAINT fk_Equipe_NumSecteur FOREIGN KEY(NumSecteur) REFERENCES secteur(NumSecteur),
-    CONSTRAINT fk_Equipe_NASBenevole FOREIGN KEY (NASBenevole) REFERENCES benevole(NASBenevole)
+    CONSTRAINT fk_Equipe_NASBenevole1 FOREIGN KEY (NASBenevole1) REFERENCES benevole(NASBenevole),
+    CONSTRAINT fk_Equipe_NASBenevole2 FOREIGN KEY (NASBenevole2) REFERENCES benevole(NASBenevole)
 );
 
 CREATE TABLE demande (
