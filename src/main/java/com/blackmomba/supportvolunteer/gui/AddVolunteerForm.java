@@ -87,7 +87,7 @@ public class AddVolunteerForm extends JFrame implements ActionListener {
                         getTextFieldValueByName("firstName"),
                         getTextFieldValueByName("address"),
                         true,
-                        comboItem.getKey()));
+                        (Long) comboItem.getKey()));
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(
                         this,

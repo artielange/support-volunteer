@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Getter
 public class ComboItem {
 
-    private Long key;
+    private Object key;
     private String value;
 
     @Override

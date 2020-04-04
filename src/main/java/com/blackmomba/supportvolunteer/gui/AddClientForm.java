@@ -14,6 +14,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class AddClientForm extends JFrame implements ActionListener {
@@ -32,10 +34,25 @@ public class AddClientForm extends JFrame implements ActionListener {
         this.setTitle("Ajouter un client");
         SpringLayout springLayout = new SpringLayout();
         this.setLayout(springLayout);
+        JPanel p = new JPanel(new SpringLayout());
+
+        JLabel existingClientsLabel = new JLabel("Clients existants: ", JLabel.TRAILING);
+        List<Client> clientList = clientRepository.findAll();
+
+        String content = String.format("%-12s %-40s %-20s %-40s %-1s\n",
+                "NAS", "Nom", "Date de naissance", "Address", "Secteur");
+        content += clientList.stream().map(Client::toString).collect(Collectors.joining("\n"));
+        JTextArea jTextArea = new JTextArea();
+        jTextArea.setFont(new Font("Courier New", Font.PLAIN, 12));
+        jTextArea.setBounds(0, 0, 678, 382);
+        jTextArea.setText(content);
+        p.add(existingClientsLabel);
+        existingClientsLabel.setLabelFor(jTextArea);
+        p.add(jTextArea);
+
         String[] labels = {"NAS: ", "Nom: ", "Prenom: ", "Date de naissance: ", "Address: "};
         String[] textFieldNames = {"sin", "lastName", "firstName", "dob", "address"};
-        int numPairs = labels.length + 2;
-        JPanel p = new JPanel(new SpringLayout());
+        int numPairs = labels.length + 3;
         for (int x = 0; x < labels.length; x++) {
             JLabel l = new JLabel(labels[x], JLabel.TRAILING);
             p.add(l);
@@ -56,8 +73,8 @@ public class AddClientForm extends JFrame implements ActionListener {
         componentHashMap.put("sector", jComboBox);
         JButton addButton = getButton("Ajouter", "add");
         JButton cancelButton = getButton("Annuler", "cancel");
-        p.add(addButton);
         p.add(cancelButton);
+        p.add(addButton);
         SpringUtilities.makeCompactGrid(p, numPairs, 2, 6, 6, 6, 6);
         p.setOpaque(true);
         this.setContentPane(p);
@@ -89,7 +106,7 @@ public class AddClientForm extends JFrame implements ActionListener {
                         getTextFieldValueByName("firstName"),
                         formatter.parse(getTextFieldValueByName("dob")),
                         getTextFieldValueByName("address"),
-                        comboItem.getKey()));
+                        (Long) comboItem.getKey()));
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(
                         this,

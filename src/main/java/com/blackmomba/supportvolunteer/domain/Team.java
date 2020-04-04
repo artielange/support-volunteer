@@ -21,11 +21,11 @@ public class Team {
     @Column(name = "DispoEquipe")
     private boolean available;
 
-    @Column(name = "StatutEquipe")
-    private String status;
+    @Column(name = "NASBenevole1")
+    private String volunteerSin1;
 
-    @Column(name = "NASBenevole")
-    private String volunteerSin;
+    @Column(name = "NASBenevole2")
+    private String volunteerSin2;
 
     @Column(name = "NumSecteur")
     private Long sectorId;

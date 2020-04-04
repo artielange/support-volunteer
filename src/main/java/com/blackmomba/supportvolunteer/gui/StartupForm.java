@@ -14,6 +14,7 @@ public class StartupForm extends JFrame implements ActionListener {
     private AddFeedbackForm addFeedbackForm;
     private AddSupportEventForm addSupportEventForm;
     private AddSupportRequestForm addSupportRequestForm;
+    private AddTeamForm addTeamForm;
     private AddVehicleForm addVehicleForm;
     private AddVolunteerForm addVolunteerForm;
 
@@ -22,12 +23,14 @@ public class StartupForm extends JFrame implements ActionListener {
             AddFeedbackForm addFeedbackForm,
             AddSupportEventForm addSupportEventForm,
             AddSupportRequestForm addSupportRequestForm,
+            AddTeamForm addTeamForm,
             AddVehicleForm addVehicleForm,
             AddVolunteerForm addVolunteerForm) {
         this.addClientForm = addClientForm;
         this.addFeedbackForm = addFeedbackForm;
         this.addSupportEventForm = addSupportEventForm;
         this.addSupportRequestForm = addSupportRequestForm;
+        this.addTeamForm = addTeamForm;
         this.addVehicleForm = addVehicleForm;
         this.addVolunteerForm = addVolunteerForm;
         // Create the frame
@@ -80,6 +83,7 @@ public class StartupForm extends JFrame implements ActionListener {
                 addSupportRequestForm.setVisible(true);
                 break;
             case "addTeam":
+                addTeamForm.setVisible(true);
                 break;
             case "addVehicle":
                 addVehicleForm.setVisible(true);
