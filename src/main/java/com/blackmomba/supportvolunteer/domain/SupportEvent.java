@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -17,14 +18,11 @@ public class SupportEvent {
     @Column(name = "IDAccomp", updatable = false, nullable = false)
     private Long id;
 
-    @Column(name = "DateAccomp")
-    private String eventDate;
+    @Column(name = "DebutAccomp")
+    private Date startTime;
 
-    @Column(name = "HeureDebutAccomp")
-    private String startTime;
-
-    @Column(name = "HeureFinAccomp")
-    private String endTime;
+    @Column(name = "FinAccomp")
+    private Date endTime;
 
     @Column(name = "TypeAccomp")
     private String supportType;

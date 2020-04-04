@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -17,8 +18,8 @@ public class SupportRequest {
     @Column(name = "NumDemande", updatable = false, nullable = false)
     private Long id;
 
-    @Column(name = "HeureDemande")
-    private String time;
+    @Column(name = "DateHeureDemande")
+    private Date requestDate;
 
     @Column(name = "TypeAccomp")
     private String supportType;

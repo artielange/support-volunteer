@@ -20,7 +20,6 @@ public class AddVolunteerForm extends JFrame implements ActionListener {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private VolunteerRepository volunteerRepository;
-    private SectorRepository sectorRepository;
 
     private HashMap<String, Component> componentHashMap;
 
@@ -28,7 +27,6 @@ public class AddVolunteerForm extends JFrame implements ActionListener {
             VolunteerRepository volunteerRepository,
             SectorRepository sectorRepository) {
         this.volunteerRepository = volunteerRepository;
-        this.sectorRepository = sectorRepository;
         this.componentHashMap = new HashMap<>();
         this.setTitle("Ajouter un Benevole");
         SpringLayout springLayout = new SpringLayout();

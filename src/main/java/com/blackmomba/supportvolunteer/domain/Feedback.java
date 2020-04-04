@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -17,11 +18,8 @@ public class Feedback {
     @Column(name = "NumCommentaire", updatable = false, nullable = false)
     private Long id;
 
-    @Column(name = "DateCommentaire")
-    private String feedbackDate;
-
-    @Column(name = "HeureCommentaiClientNASClientre")
-    private String feedbackTime;
+    @Column(name = "DateHeureCommentaire")
+    private Date feedbackDateTime;
 
     @Column(name = "TypeCommentaire")
     private String feedbackType;

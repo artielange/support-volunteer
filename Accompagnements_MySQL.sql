@@ -18,7 +18,7 @@ CREATE TABLE client (
     NASClient VARCHAR(11),
     NomClient VARCHAR(45),
     PrenomClient VARCHAR(45),
-    DateNaissance VARCHAR(45),
+    DateNaissance DATE,
     AdresseClient VARCHAR(45) NOT NULL,
     NumSecteur INTEGER,
     CONSTRAINT pk_Client_NASClient PRIMARY KEY(NASClient),
@@ -49,7 +49,7 @@ CREATE TABLE equipe (
 
 CREATE TABLE demande (
     NumDemande INTEGER NOT NULL AUTO_INCREMENT,
-    HeureDemande VARCHAR(45),
+    DateHeureDemande DATETIME,
     TypeAccomp VARCHAR(45),
     NASClient VARCHAR(11),
     CONSTRAINT pk_Demande_NumDemande PRIMARY KEY(NumDemande),
@@ -59,7 +59,7 @@ CREATE TABLE demande (
 CREATE TABLE voiture (
     NoImmatriculation VARCHAR(11),
     MarqueVehicule VARCHAR(45),
-    AnneeVehicule VARCHAR(4),
+    AnneeVehicule VARCHAR(8),
     TypeVehicule VARCHAR(45),
     NASBenevole VARCHAR(11),
     IDEquipe INTEGER,
@@ -70,13 +70,12 @@ CREATE TABLE voiture (
 
 CREATE TABLE accompagnement (
     IDAccomp INTEGER NOT NULL AUTO_INCREMENT,
-    DateAccomp VARCHAR(10),
-    HeureDebutAccomp VARCHAR(8),
-    HeureFinAccomp VARCHAR(8),
+    DebutAccomp DATETIME,
+    FinAccomp DATETIME,
     TypeAccomp VARCHAR(45),
     NASBenevole VARCHAR(11),
     NASClient VARCHAR(11),
-    IDEquipe INTEGER NOT NULL,
+    IDEquipe INTEGER,
     CONSTRAINT pk_Accompagnement_IDAccomp PRIMARY KEY(IDAccomp),
     CONSTRAINT fk_Accompagnement_NASBenevole FOREIGN KEY (NASBenevole) REFERENCES benevole(NASBenevole),
     CONSTRAINT fk_Accompagnement_NASClient FOREIGN KEY (NASClient) REFERENCES client(NASClient),
@@ -85,8 +84,7 @@ CREATE TABLE accompagnement (
 
 CREATE TABLE commentaire (
     NumCommentaire INTEGER NOT NULL AUTO_INCREMENT,
-    DateCommentaire VARCHAR(10),
-    HeureCommentaiClientNASClientre VARCHAR(8),
+    DateHeureCommentaire DATETIME,
     TypeCommentaire VARCHAR(45),
     NASClient VARCHAR(11),
     CONSTRAINT pk_Commentaire_NumCommentaire PRIMARY KEY(NumCommentaire),

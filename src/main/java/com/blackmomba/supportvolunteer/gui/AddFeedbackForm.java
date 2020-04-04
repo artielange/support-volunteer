@@ -10,6 +10,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 
 @Service
@@ -27,8 +28,8 @@ public class AddFeedbackForm extends JFrame implements ActionListener {
         this.setTitle("Ajouter un commentaire");
         SpringLayout springLayout = new SpringLayout();
         this.setLayout(springLayout);
-        String[] labels = {"Date: ", "Heure: ", "TypeCommentaire: ", "NAS Client: "};
-        String[] textFieldNames = {"date", "time", "feedbackType", "clientNas"};
+        String[] labels = {"Date et Heure: ", "TypeCommentaire: ", "NAS Client: "};
+        String[] textFieldNames = {"dateTime", "feedbackType", "clientNas"};
         int numPairs = labels.length + 1;
         JPanel p = new JPanel(new SpringLayout());
         for (int x = 0; x < labels.length; x++) {
@@ -65,10 +66,10 @@ public class AddFeedbackForm extends JFrame implements ActionListener {
 
     private void addFeedback() {
         try {
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd hh:mm");
             feedbackRepository.save(new Feedback(
                     0L,
-                    getTextFieldValueByName("date"),
-                    getTextFieldValueByName("time"),
+                    formatter.parse(getTextFieldValueByName("dateTime")),
                     getTextFieldValueByName("feedbackType"),
                     getTextFieldValueByName("clientNas")));
         } catch (Exception e) {

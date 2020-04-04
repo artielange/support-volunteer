@@ -12,6 +12,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 
 @Service
@@ -77,6 +78,7 @@ public class AddClientForm extends JFrame implements ActionListener {
     }
 
     private void addClient() {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
         Component component = componentHashMap.getOrDefault("sector", null);
         ComboItem comboItem = (ComboItem) ((JComboBox<?>) component).getSelectedItem();
         if (comboItem != null) {
@@ -85,7 +87,7 @@ public class AddClientForm extends JFrame implements ActionListener {
                         getTextFieldValueByName("sin"),
                         getTextFieldValueByName("lastName"),
                         getTextFieldValueByName("firstName"),
-                        getTextFieldValueByName("dob"),
+                        formatter.parse(getTextFieldValueByName("dob")),
                         getTextFieldValueByName("address"),
                         comboItem.getKey()));
             } catch (Exception e) {

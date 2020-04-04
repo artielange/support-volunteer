@@ -10,6 +10,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 
 @Service
@@ -27,10 +28,10 @@ public class AddSupportEventForm extends JFrame implements ActionListener {
         this.setTitle("Ajouter un Accompagnement");
         SpringLayout springLayout = new SpringLayout();
         this.setLayout(springLayout);
-        String[] labels = {"Date: ", "Heure de debut: ", "Heure de fin: ", "Type d'accompagnement: ",
-                "NAS Benevole: ", "NAS Client: ", "ID Equipe: "};
+        String[] labels = {"Heure de debut: ", "Heure de fin: ", "Type d'accompagnement: ",
+                "NAS Benevole: ", "NAS Client: "};
         String[] textFieldNames =
-                {"date", "startTime", "endTime", "supportEventType", "volunteerSin", "clientSin", "teamId"};
+                {"startTime", "endTime", "supportEventType", "volunteerSin", "clientSin"};
         int numPairs = labels.length + 1;
         JPanel p = new JPanel(new SpringLayout());
         for (int x = 0; x < labels.length; x++) {
@@ -66,16 +67,16 @@ public class AddSupportEventForm extends JFrame implements ActionListener {
     }
 
     private void addSupportEvent() {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd hh:mm");
         try {
             supportEventRepository.save(new SupportEvent(
                     0L,
-                    getTextFieldValueByName("date"),
-                    getTextFieldValueByName("startTime"),
-                    getTextFieldValueByName("endTime"),
+                    formatter.parse(getTextFieldValueByName("startTime")),
+                    formatter.parse(getTextFieldValueByName("endTime")),
                     getTextFieldValueByName("supportEventType"),
                     getTextFieldValueByName("volunteerSin"),
                     getTextFieldValueByName("clientSin"),
-                    getTextFieldValueByName("teamId")));
+                    null));
         } catch (Exception e) {
             JOptionPane.showMessageDialog(
                     this,

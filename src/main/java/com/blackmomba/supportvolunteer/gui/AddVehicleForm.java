@@ -71,7 +71,7 @@ public class AddVehicleForm extends JFrame implements ActionListener {
                     getTextFieldValueByName("model"),
                     getTextFieldValueByName("year"),
                     getTextFieldValueByName("volunteerSin"),
-                    0L));
+                    null));
         } catch (Exception e) {
             JOptionPane.showMessageDialog(
                     this,

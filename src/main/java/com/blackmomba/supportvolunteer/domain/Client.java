@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.util.Date;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -25,7 +26,7 @@ public class Client {
     private String firstName;
 
     @Column(name = "DateNaissance")
-    private String dateOfBirth;
+    private Date dateOfBirth;
 
     @Column(name = "AdresseClient")
     private String address;

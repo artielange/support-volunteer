@@ -10,6 +10,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 
 @Service
@@ -27,8 +28,8 @@ public class AddSupportRequestForm extends JFrame implements ActionListener {
         this.setTitle("Ajouter une Demande d'accompagnement");
         SpringLayout springLayout = new SpringLayout();
         this.setLayout(springLayout);
-        String[] labels = {"Heure: ", "Type d'accompagnement: ", "NAS Client: "};
-        String[] textFieldNames = {"time", "supportType", "clientNas"};
+        String[] labels = {"Date et Heure: ", "Type d'accompagnement: ", "NAS Client: "};
+        String[] textFieldNames = {"dateTime", "supportType", "clientNas"};
         int numPairs = labels.length + 1;
         JPanel p = new JPanel(new SpringLayout());
         for (int x = 0; x < labels.length; x++) {
@@ -64,10 +65,11 @@ public class AddSupportRequestForm extends JFrame implements ActionListener {
     }
 
     private void addSupportRequest() {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd hh:mm");
         try {
             supportRequestRepository.save(new SupportRequest(
                     0L,
-                    getTextFieldValueByName("time"),
+                    formatter.parse(getTextFieldValueByName("dateTime")),
                     getTextFieldValueByName("supportType"),
                     getTextFieldValueByName("clientNas")));
         } catch (Exception e) {
