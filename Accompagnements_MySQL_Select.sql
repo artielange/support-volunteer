@@ -2,8 +2,8 @@
 select NomClient, PrenomClient, DateNaissance, NomBenevole, PrenomBenevole from secteur inner join client on client.NumSecteur = secteur.NumSecteur
 inner join benevole on benevole.NumSecteur = client.NumSecteur
 inner join equipe on equipe.NASBenevole2 = benevole.NASBenevole WHERE secteur.NumSecteur IN
-(select NumSecteur from client where DateNaissance in (select max(DateNaissance) from client inner join demande on demande.NASClient = client.NASClient
-where demande.TypeAccomp = 'SupportDomicile') and NASClient IN
+(select NumSecteur from client where DateNaissance in (select max(DateNaissance) from client inner join accompagnement on accompagnement.NASClient = client.NASClient
+where accompagnement.TypeAccomp = 'SupportDomicile') and NASClient IN
 (SELECT NASClient from accompagnement where TypeAccomp in ('SupportDomicile')
 ));
 
@@ -21,7 +21,7 @@ inner join voiture on voiture.IDEquipe = accompagnement.IDEquipe
 inner join benevole on benevole.NASBenevole = voiture.NASBenevole WHERE commentaire.NASClient IN
 (select NASClient from commentaire where TypeCommentaire = 'Saleté véhicule');
 
---afficher le nombre d'heures requis pour chaque type d'accompagnement par secteur
+-- afficher le nombre d'heures requis pour chaque type d'accompagnement par secteur
 select distinct NomSecteur, TypeAccomp, (HeureFinAccomp - HeureDebutAccomp) from accompagnement
 inner join equipe on equipe.IDEquipe = accompagnement.IDEquipe
 inner join benevole on benevole.NumSecteur = equipe.NumSecteur
@@ -41,6 +41,6 @@ group by secteur.NomSecteur
 having count(secteur.NumSecteur);
 
 
---select * from Accompagnement inner join benevole on benevole.NASBenevole = accompagnement.NASBenevole
---where DateAccomp BETWEEN '2015-01-01' and '2020-01-01'
---and benevole.NomBenevole = 'Abel';
+-- select * from Accompagnement inner join benevole on benevole.NASBenevole = accompagnement.NASBenevole
+-- where DateAccomp BETWEEN '2015-01-01' and '2020-01-01'
+-- and benevole.NomBenevole = 'Abel';

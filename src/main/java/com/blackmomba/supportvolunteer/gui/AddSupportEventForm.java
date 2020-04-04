@@ -12,6 +12,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class AddSupportEventForm extends JFrame implements ActionListener {
@@ -28,12 +30,25 @@ public class AddSupportEventForm extends JFrame implements ActionListener {
         this.setTitle("Ajouter un Accompagnement");
         SpringLayout springLayout = new SpringLayout();
         this.setLayout(springLayout);
+        JPanel p = new JPanel(new SpringLayout());
+        JLabel existingSupportEventsLabel = new JLabel("Accompagnement existants: ", JLabel.TRAILING);
+        List<SupportEvent> supportEventList = supportEventRepository.findAll();
+        String content = String.format("%-6s %-20s %-20s %-30s %-12s %-12s %-6s\n",
+                "ID", "Heure de debut", "Heure de fin", "Type d'accompagnement", "NAS Benevole", "NAS Client", "ID Equipe");
+        content += supportEventList.stream().map(SupportEvent::toString).collect(Collectors.joining("\n"));
+        JTextArea jTextArea = new JTextArea();
+        jTextArea.setFont(new Font("Courier New", Font.PLAIN, 12));
+        jTextArea.setBounds(0, 0, 678, 382);
+        jTextArea.setText(content);
+        jTextArea.setEditable(false);
+        p.add(existingSupportEventsLabel);
+        existingSupportEventsLabel.setLabelFor(jTextArea);
+        p.add(jTextArea);
         String[] labels = {"Heure de debut: ", "Heure de fin: ", "Type d'accompagnement: ",
                 "NAS Benevole: ", "NAS Client: "};
         String[] textFieldNames =
                 {"startTime", "endTime", "supportEventType", "volunteerSin", "clientSin"};
-        int numPairs = labels.length + 1;
-        JPanel p = new JPanel(new SpringLayout());
+        int numPairs = labels.length + 2;
         for (int x = 0; x < labels.length; x++) {
             JLabel l = new JLabel(labels[x], JLabel.TRAILING);
             p.add(l);
@@ -45,8 +60,8 @@ public class AddSupportEventForm extends JFrame implements ActionListener {
         }
         JButton addButton = getButton("Ajouter", "add");
         JButton cancelButton = getButton("Annuler", "cancel");
-        p.add(addButton);
         p.add(cancelButton);
+        p.add(addButton);
         SpringUtilities.makeCompactGrid(p, numPairs, 2, 6, 6, 6, 6);
         p.setOpaque(true);
         this.setContentPane(p);

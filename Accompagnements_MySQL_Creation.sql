@@ -39,7 +39,6 @@ CREATE TABLE benevole (
 CREATE TABLE equipe (
     IDEquipe INTEGER NOT NULL AUTO_INCREMENT,
     DispoEquipe TINYINT,
-    StatutEquipe TINYINT,
     NASBenevole1 VARCHAR(11),
     NASBenevole2 VARCHAR(11),
     NumSecteur INTEGER,

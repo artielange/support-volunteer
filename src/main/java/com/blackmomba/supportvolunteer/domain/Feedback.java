@@ -1,15 +1,16 @@
 package com.blackmomba.supportvolunteer.domain;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
 @Entity(name = "commentaire")
 public class Feedback {
 
@@ -26,5 +27,12 @@ public class Feedback {
 
     @Column(name = "NASClient")
     private String clientSin;
+
+    @Override
+    public String toString() {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd hh:mm");
+        return String.format("%-6s %-20s %-20s %-12s",
+                id, simpleDateFormat.format(feedbackDateTime), feedbackType, clientSin);
+    }
 
 }

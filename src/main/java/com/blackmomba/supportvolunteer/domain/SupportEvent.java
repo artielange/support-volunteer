@@ -1,15 +1,16 @@
 package com.blackmomba.supportvolunteer.domain;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
 @Entity(name = "accompagnement")
 public class SupportEvent {
 
@@ -35,5 +36,13 @@ public class SupportEvent {
 
     @Column(name = "IDEquipe")
     private String teamId;
+
+    @Override
+    public String toString() {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd hh:mm");
+        return String.format("%-6s %-20s %-20s %-30s %-12s %-12s %-6s",
+                id, simpleDateFormat.format(startTime), simpleDateFormat.format(endTime),
+                supportType, volunteerSin, clientSin, teamId);
+    }
 
 }

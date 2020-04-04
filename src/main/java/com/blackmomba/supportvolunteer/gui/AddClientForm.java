@@ -35,10 +35,8 @@ public class AddClientForm extends JFrame implements ActionListener {
         SpringLayout springLayout = new SpringLayout();
         this.setLayout(springLayout);
         JPanel p = new JPanel(new SpringLayout());
-
         JLabel existingClientsLabel = new JLabel("Clients existants: ", JLabel.TRAILING);
         List<Client> clientList = clientRepository.findAll();
-
         String content = String.format("%-12s %-40s %-20s %-40s %-1s\n",
                 "NAS", "Nom", "Date de naissance", "Address", "Secteur");
         content += clientList.stream().map(Client::toString).collect(Collectors.joining("\n"));
@@ -46,10 +44,10 @@ public class AddClientForm extends JFrame implements ActionListener {
         jTextArea.setFont(new Font("Courier New", Font.PLAIN, 12));
         jTextArea.setBounds(0, 0, 678, 382);
         jTextArea.setText(content);
+        jTextArea.setEditable(false);
         p.add(existingClientsLabel);
         existingClientsLabel.setLabelFor(jTextArea);
         p.add(jTextArea);
-
         String[] labels = {"NAS: ", "Nom: ", "Prenom: ", "Date de naissance: ", "Address: "};
         String[] textFieldNames = {"sin", "lastName", "firstName", "dob", "address"};
         int numPairs = labels.length + 3;
