@@ -12,6 +12,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
+import java.util.stream.Collectors;
+
+import static com.blackmomba.supportvolunteer.gui.GuiTools.getButton;
+import static com.blackmomba.supportvolunteer.gui.GuiTools.getTextFieldValueByName;
 
 @Service
 public class AddSupportRequestForm extends JFrame implements ActionListener {
@@ -26,28 +30,21 @@ public class AddSupportRequestForm extends JFrame implements ActionListener {
         this.supportRequestRepository = supportRequestRepository;
         this.componentHashMap = new HashMap<>();
         this.setTitle("Ajouter une Demande d'accompagnement");
-        SpringLayout springLayout = new SpringLayout();
-        this.setLayout(springLayout);
+        this.setLayout(new SpringLayout());
         String[] labels = {"Date et Heure: ", "Type d'accompagnement: ", "NAS Client: "};
-        String[] textFieldNames = {"dateTime", "supportType", "clientNas"};
-        int numPairs = labels.length + 1;
-        JPanel p = new JPanel(new SpringLayout());
-        for (int x = 0; x < labels.length; x++) {
-            JLabel l = new JLabel(labels[x], JLabel.TRAILING);
-            p.add(l);
-            JTextField textField = new JTextField(10);
-            textField.setName(textFieldNames[x]);
-            l.setLabelFor(textField);
-            p.add(textField);
-            componentHashMap.put(textField.getName(), textField);
+        String[] fieldNames = {"dateTime", "supportType", "clientNas"};
+        // Make the form
+        JPanel form = GuiTools.getForm(labels, fieldNames);
+        for (Component component : form.getComponents()) {
+            componentHashMap.put(component.getName(), component);
         }
-        JButton addButton = getButton("Ajouter", "add");
-        JButton cancelButton = getButton("Annuler", "cancel");
-        p.add(addButton);
-        p.add(cancelButton);
-        SpringUtilities.makeCompactGrid(p, numPairs, 2, 6, 6, 6, 6);
-        p.setOpaque(true);
-        this.setContentPane(p);
+        JButton addButton = getButton("Ajouter", "add", this);
+        JButton cancelButton = getButton("Annuler", "cancel", this);
+        form.add(addButton);
+        form.add(cancelButton);
+        int numPairs = labels.length + 1;
+        SpringUtilities.makeCompactGrid(form, numPairs, 2, 6, 6, 6, 6);
+        this.setContentPane(form);
         this.pack();
     }
 
@@ -69,9 +66,9 @@ public class AddSupportRequestForm extends JFrame implements ActionListener {
         try {
             supportRequestRepository.save(new SupportRequest(
                     0L,
-                    formatter.parse(getTextFieldValueByName("dateTime")),
-                    getTextFieldValueByName("supportType"),
-                    getTextFieldValueByName("clientNas")));
+                    formatter.parse(getTextFieldValueByName(componentHashMap, "dateTime")),
+                    getTextFieldValueByName(componentHashMap, "supportType"),
+                    getTextFieldValueByName(componentHashMap, "clientNas")));
         } catch (Exception e) {
             JOptionPane.showMessageDialog(
                     this,
@@ -82,15 +79,12 @@ public class AddSupportRequestForm extends JFrame implements ActionListener {
         }
     }
 
-    private JButton getButton(String caption, String actionCommand) {
-        JButton jButton = new JButton(caption);
-        jButton.setActionCommand(actionCommand);
-        jButton.addActionListener(this);
-        return jButton;
+    public JPanel getExistingRecordsJPanel() {
+        String title = "Demandes existantes";
+        String content = String.format("%-6s %-20s %-20s %-11s\n",
+                "ID", "Date et Heure", "Type d'Accompagnement", "NAS Client");
+        content += supportRequestRepository.findAll().stream().map(SupportRequest::toString).collect(Collectors.joining("\n"));
+        return GuiTools.getExistingRecordsJPanel(title, content);
     }
 
-    public String getTextFieldValueByName(String name) {
-        JTextField textField = (JTextField) componentHashMap.getOrDefault(name, null);
-        return textField != null ? textField.getText().trim() : "";
-    }
 }

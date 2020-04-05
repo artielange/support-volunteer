@@ -36,24 +36,40 @@ public class StartupForm extends JFrame implements ActionListener {
         // Create the frame
         this.setTitle("Gestion des benevoles pour l'ille de Montreal");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setLayout(new BoxLayout(this.getContentPane(), BoxLayout.Y_AXIS));
+        this.setLayout(new SpringLayout());
+
         // Create the buttons
-        JButton addCustomer = getButton("Ajouter un client","addCustomer");
-        JButton addFeedback = getButton("Ajouter un commentaire", "addFeedback");
-        JButton addSupportEvent = getButton("Ajouter un accompagnement", "addSupportEvent");
-        JButton addSupportRequest = getButton("Ajouter une demande", "addSupportRequest");
-        JButton addTeam = getButton("Creer un equipe", "addTeam");
-        JButton addVehicle = getButton("Ajouter un vehicule", "addVehicle");
-        JButton addVolunteer = getButton("Ajouter un benevole", "addVolunteer");
-        JButton cancelButton = getButton("Annuler", "cancel");
-        this.getContentPane().add(addCustomer);
-        this.getContentPane().add(addFeedback);
-        this.getContentPane().add(addSupportEvent);
-        this.getContentPane().add(addSupportRequest);
-        this.getContentPane().add(addTeam);
-        this.getContentPane().add(addVehicle);
-        this.getContentPane().add(addVolunteer);
-        this.getContentPane().add(cancelButton);
+        JButton addClientButton = getButton("Ajouter un client","addCustomer");
+        JButton addFeedbackButton = getButton("Ajouter un commentaire", "addFeedback");
+        JButton addSupportEventButton = getButton("Ajouter un accompagnement", "addSupportEvent");
+        JButton addSupportRequestButton = getButton("Ajouter une demande", "addSupportRequest");
+        JButton addTeamButton = getButton("Creer un equipe", "addTeam");
+        JButton addVehicleButton = getButton("Ajouter un vehicule", "addVehicle");
+        JButton addVolunteerButton = getButton("Ajouter un benevole", "addVolunteer");
+        // Create the existing records panels
+        JPanel existingClientsJPanel = addClientForm.getExistingRecordsJPanel();
+        JPanel existingFeedbackJPanel = addFeedbackForm.getExistingRecordsJPanel();
+        JPanel existingSupportEventsJPanel = addSupportEventForm.getExistingRecordsJPanel();
+        JPanel existingSupportRequestJPanel = addSupportRequestForm.getExistingRecordsJPanel();
+        JPanel existingTeamsJPanel = addTeamForm.getExistingRecordsJPanel();
+        JPanel existingVehiclesJPanel = addVehicleForm.getExistingRecordsJPanel();
+        JPanel existingVolunteersJPanel = addVolunteerForm.getExistingRecordsJPanel();
+        // Put it all together
+        this.getContentPane().add(addClientButton);
+        this.getContentPane().add(existingClientsJPanel);
+        this.getContentPane().add(addFeedbackButton);
+        this.getContentPane().add(existingFeedbackJPanel);
+        this.getContentPane().add(addSupportEventButton);
+        this.getContentPane().add(existingSupportEventsJPanel);
+        this.getContentPane().add(addSupportRequestButton);
+        this.getContentPane().add(existingSupportRequestJPanel);
+        this.getContentPane().add(addTeamButton);
+        this.getContentPane().add(existingTeamsJPanel);
+        this.getContentPane().add(addVehicleButton);
+        this.getContentPane().add(existingVehiclesJPanel);
+        this.getContentPane().add(addVolunteerButton);
+        this.getContentPane().add(existingVolunteersJPanel);
+        SpringUtilities.makeCompactGrid(this.getContentPane(), 7, 2, 6, 6, 6, 6);
         this.pack();
         this.setVisible(true);
     }
@@ -91,11 +107,7 @@ public class StartupForm extends JFrame implements ActionListener {
             case "addVolunteer":
                 addVolunteerForm.setVisible(true);
                 break;
-            case "cancel":
-                System.exit(0);
-                break;
         }
     }
-
 
 }

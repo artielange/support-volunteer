@@ -13,6 +13,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
+import java.util.stream.Collectors;
+
+import static com.blackmomba.supportvolunteer.gui.GuiTools.getButton;
+import static com.blackmomba.supportvolunteer.gui.GuiTools.getTextFieldValueByName;
 
 @Service
 public class AddVolunteerForm extends JFrame implements ActionListener {
@@ -29,37 +33,30 @@ public class AddVolunteerForm extends JFrame implements ActionListener {
         this.volunteerRepository = volunteerRepository;
         this.componentHashMap = new HashMap<>();
         this.setTitle("Ajouter un Benevole");
-        SpringLayout springLayout = new SpringLayout();
-        this.setLayout(springLayout);
+        this.setLayout(new SpringLayout());
         String[] labels = {"NAS: ", "Nom: ", "Prenom: ", "Date de naissance: ", "Address: "};
-        String[] textFieldNames = {"sin", "lastName", "firstName", "dob", "address"};
-        int numPairs = labels.length + 2;
-        JPanel p = new JPanel(new SpringLayout());
-        for (int x = 0; x < labels.length; x++) {
-            JLabel l = new JLabel(labels[x], JLabel.TRAILING);
-            p.add(l);
-            JTextField textField = new JTextField(10);
-            textField.setName(textFieldNames[x]);
-            l.setLabelFor(textField);
-            p.add(textField);
-            componentHashMap.put(textField.getName(), textField);
+        String[] fieldNames = {"sin", "lastName", "firstName", "dob", "address"};
+        // Make the form
+        JPanel form = GuiTools.getForm(labels, fieldNames);
+        for (Component component : form.getComponents()) {
+            componentHashMap.put(component.getName(), component);
         }
         JComboBox<ComboItem> jComboBox = new JComboBox<>();
         for (Sector sector : sectorRepository.findAll()) {
             jComboBox.addItem(new ComboItem(sector.getId(), sector.getName()));
         }
-        JLabel l = new JLabel("Secteur: ", JLabel.TRAILING);
-        p.add(l);
-        l.setLabelFor(jComboBox);
-        p.add(jComboBox);
+        JLabel jLabel = new JLabel("Secteur: ", JLabel.TRAILING);
+        form.add(jLabel);
+        jLabel.setLabelFor(jComboBox);
+        form.add(jComboBox);
         componentHashMap.put("sector", jComboBox);
-        JButton addButton = getButton("Ajouter", "add");
-        JButton cancelButton = getButton("Annuler", "cancel");
-        p.add(addButton);
-        p.add(cancelButton);
-        SpringUtilities.makeCompactGrid(p, numPairs, 2, 6, 6, 6, 6);
-        p.setOpaque(true);
-        this.setContentPane(p);
+        JButton addButton = getButton("Ajouter", "add", this);
+        JButton cancelButton = getButton("Annuler", "cancel", this);
+        form.add(cancelButton);
+        form.add(addButton);
+        int numPairs = labels.length + 2;
+        SpringUtilities.makeCompactGrid(form, numPairs, 2, 6, 6, 6, 6);
+        this.setContentPane(form);
         this.pack();
     }
 
@@ -82,10 +79,10 @@ public class AddVolunteerForm extends JFrame implements ActionListener {
         if (comboItem != null) {
             try {
                 volunteerRepository.save(new Volunteer(
-                        getTextFieldValueByName("sin"),
-                        getTextFieldValueByName("lastName"),
-                        getTextFieldValueByName("firstName"),
-                        getTextFieldValueByName("address"),
+                        getTextFieldValueByName(componentHashMap, "sin"),
+                        getTextFieldValueByName(componentHashMap, "lastName"),
+                        getTextFieldValueByName(componentHashMap, "firstName"),
+                        getTextFieldValueByName(componentHashMap, "address"),
                         true,
                         (Long) comboItem.getKey()));
             } catch (Exception e) {
@@ -99,16 +96,12 @@ public class AddVolunteerForm extends JFrame implements ActionListener {
         }
     }
 
-    private JButton getButton(String caption, String actionCommand) {
-        JButton jButton = new JButton(caption);
-        jButton.setActionCommand(actionCommand);
-        jButton.addActionListener(this);
-        return jButton;
-    }
-
-    public String getTextFieldValueByName(String name) {
-        JTextField textField = (JTextField) componentHashMap.getOrDefault(name, null);
-        return textField != null ? textField.getText().trim() : "";
+    public JPanel getExistingRecordsJPanel() {
+        String title = "Benevoles existantes";
+        String content = String.format("%-12s %-40s %-20s %-40s %-10s %-1s\n",
+                "NAS", "Nom", "Date de naissance", "Address", "Disponible", "Secteur");
+        content += volunteerRepository.findAll().stream().map(Volunteer::toString).collect(Collectors.joining("\n"));
+        return GuiTools.getExistingRecordsJPanel(title, content);
     }
 
 }

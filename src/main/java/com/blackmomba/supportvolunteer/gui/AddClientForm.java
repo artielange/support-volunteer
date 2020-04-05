@@ -14,8 +14,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
-import java.util.List;
 import java.util.stream.Collectors;
+
+import static com.blackmomba.supportvolunteer.gui.GuiTools.getButton;
+import static com.blackmomba.supportvolunteer.gui.GuiTools.getTextFieldValueByName;
 
 @Service
 public class AddClientForm extends JFrame implements ActionListener {
@@ -32,50 +34,31 @@ public class AddClientForm extends JFrame implements ActionListener {
         this.clientRepository = clientRepository;
         this.componentHashMap = new HashMap<>();
         this.setTitle("Ajouter un client");
-        SpringLayout springLayout = new SpringLayout();
-        this.setLayout(springLayout);
-        JPanel p = new JPanel(new SpringLayout());
-        JLabel existingClientsLabel = new JLabel("Clients existants: ", JLabel.TRAILING);
-        List<Client> clientList = clientRepository.findAll();
-        String content = String.format("%-12s %-40s %-20s %-40s %-1s\n",
-                "NAS", "Nom", "Date de naissance", "Address", "Secteur");
-        content += clientList.stream().map(Client::toString).collect(Collectors.joining("\n"));
-        JTextArea jTextArea = new JTextArea();
-        jTextArea.setFont(new Font("Courier New", Font.PLAIN, 12));
-        jTextArea.setBounds(0, 0, 678, 382);
-        jTextArea.setText(content);
-        jTextArea.setEditable(false);
-        p.add(existingClientsLabel);
-        existingClientsLabel.setLabelFor(jTextArea);
-        p.add(jTextArea);
+        this.setLayout(new SpringLayout());
         String[] labels = {"NAS: ", "Nom: ", "Prenom: ", "Date de naissance: ", "Address: "};
-        String[] textFieldNames = {"sin", "lastName", "firstName", "dob", "address"};
-        int numPairs = labels.length + 3;
-        for (int x = 0; x < labels.length; x++) {
-            JLabel l = new JLabel(labels[x], JLabel.TRAILING);
-            p.add(l);
-            JTextField textField = new JTextField(10);
-            textField.setName(textFieldNames[x]);
-            l.setLabelFor(textField);
-            p.add(textField);
-            componentHashMap.put(textField.getName(), textField);
+        String[] fieldNames = {"sin", "lastName", "firstName", "dob", "address"};
+        // Make the form
+        JPanel form = GuiTools.getForm(labels, fieldNames);
+        for (Component component : form.getComponents()) {
+            componentHashMap.put(component.getName(), component);
         }
+        // Add the ComboBox
         JComboBox<ComboItem> jComboBox = new JComboBox<>();
         for (Sector sector : sectorRepository.findAll()) {
             jComboBox.addItem(new ComboItem(sector.getId(), sector.getName()));
         }
-        JLabel l = new JLabel("Secteur: ", JLabel.TRAILING);
-        p.add(l);
-        l.setLabelFor(jComboBox);
-        p.add(jComboBox);
+        JLabel jLabel = new JLabel("Secteur: ", JLabel.TRAILING);
+        form.add(jLabel);
+        jLabel.setLabelFor(jComboBox);
+        form.add(jComboBox);
         componentHashMap.put("sector", jComboBox);
-        JButton addButton = getButton("Ajouter", "add");
-        JButton cancelButton = getButton("Annuler", "cancel");
-        p.add(cancelButton);
-        p.add(addButton);
-        SpringUtilities.makeCompactGrid(p, numPairs, 2, 6, 6, 6, 6);
-        p.setOpaque(true);
-        this.setContentPane(p);
+        JButton addButton = getButton("Ajouter", "add", this);
+        JButton cancelButton = getButton("Annuler", "cancel", this);
+        form.add(cancelButton);
+        form.add(addButton);
+        int numPairs = labels.length + 2;
+        SpringUtilities.makeCompactGrid(form, numPairs, 2, 6, 6, 6, 6);
+        this.setContentPane(form);
         this.pack();
     }
 
@@ -99,11 +82,11 @@ public class AddClientForm extends JFrame implements ActionListener {
         if (comboItem != null) {
             try {
                 clientRepository.save(new Client(
-                        getTextFieldValueByName("sin"),
-                        getTextFieldValueByName("lastName"),
-                        getTextFieldValueByName("firstName"),
-                        formatter.parse(getTextFieldValueByName("dob")),
-                        getTextFieldValueByName("address"),
+                        getTextFieldValueByName(componentHashMap, "sin"),
+                        getTextFieldValueByName(componentHashMap, "lastName"),
+                        getTextFieldValueByName(componentHashMap, "firstName"),
+                        formatter.parse(getTextFieldValueByName(componentHashMap, "dob")),
+                        getTextFieldValueByName(componentHashMap, "address"),
                         (Long) comboItem.getKey()));
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(
@@ -116,16 +99,12 @@ public class AddClientForm extends JFrame implements ActionListener {
         }
     }
 
-    private JButton getButton(String caption, String actionCommand) {
-        JButton jButton = new JButton(caption);
-        jButton.setActionCommand(actionCommand);
-        jButton.addActionListener(this);
-        return jButton;
-    }
-
-    public String getTextFieldValueByName(String name) {
-        JTextField textField = (JTextField) componentHashMap.getOrDefault(name, null);
-        return textField != null ? textField.getText().trim() : "";
+    public JPanel getExistingRecordsJPanel() {
+        String title = "Clients existants";
+        String content = String.format("%-12s %-40s %-20s %-40s %-1s\n",
+                "NAS", "Nom", "Date de naissance", "Address", "Secteur");
+        content += clientRepository.findAll().stream().map(Client::toString).collect(Collectors.joining("\n"));
+        return GuiTools.getExistingRecordsJPanel(title, content);
     }
 
 }

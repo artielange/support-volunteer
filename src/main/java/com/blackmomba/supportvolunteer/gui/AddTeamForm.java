@@ -15,6 +15,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
+import java.util.stream.Collectors;
+
+import static com.blackmomba.supportvolunteer.gui.GuiTools.getButton;
 
 @Service
 public class AddTeamForm extends JFrame implements ActionListener {
@@ -30,10 +33,9 @@ public class AddTeamForm extends JFrame implements ActionListener {
             VolunteerRepository volunteerRepository,
             SectorRepository sectorRepository) {
         this.teamRepository = teamRepository;
-        componentHashMap = new HashMap<>();
+        this.componentHashMap = new HashMap<>();
         this.setTitle("Creer un Equipe");
-        SpringLayout springLayout = new SpringLayout();
-        this.setLayout(springLayout);
+        this.setLayout(new SpringLayout());
         JPanel p = new JPanel(new SpringLayout());
         JComboBox<ComboItem> volunteer1JComboBox = new JComboBox<>();
         JComboBox<ComboItem> volunteer2JComboBox = new JComboBox<>();
@@ -60,8 +62,8 @@ public class AddTeamForm extends JFrame implements ActionListener {
         componentHashMap.put("sector", sectorJComboBox);
         componentHashMap.put("volunteerSin1", volunteer1JComboBox);
         componentHashMap.put("volunteerSin2", volunteer2JComboBox);
-        JButton addButton = getButton("Ajouter", "add");
-        JButton cancelButton = getButton("Annuler", "cancel");
+        JButton addButton = getButton("Ajouter", "add", this);
+        JButton cancelButton = getButton("Annuler", "cancel", this);
         p.add(addButton);
         p.add(cancelButton);
         SpringUtilities.makeCompactGrid(p, 4, 2, 6, 6, 6, 6);
@@ -109,16 +111,12 @@ public class AddTeamForm extends JFrame implements ActionListener {
         }
     }
 
-    private JButton getButton(String caption, String actionCommand) {
-        JButton jButton = new JButton(caption);
-        jButton.setActionCommand(actionCommand);
-        jButton.addActionListener(this);
-        return jButton;
-    }
-
-    public String getTextFieldValueByName(String name) {
-        JTextField textField = (JTextField) componentHashMap.getOrDefault(name, null);
-        return textField != null ? textField.getText().trim() : "";
+    public JPanel getExistingRecordsJPanel() {
+        String title = "Equipes existants";
+        String content = String.format("%-6s %-10s %-11s %-11s %-1s\n",
+                "ID", "Disponible", "NAS Benevole 1", "NAS Benevole 2", "Secteur");
+        content += teamRepository.findAll().stream().map(Team::toString).collect(Collectors.joining("\n"));
+        return GuiTools.getExistingRecordsJPanel(title, content);
     }
 
 }

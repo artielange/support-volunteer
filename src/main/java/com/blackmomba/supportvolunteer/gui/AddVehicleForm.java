@@ -11,6 +11,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
+import java.util.stream.Collectors;
+
+import static com.blackmomba.supportvolunteer.gui.GuiTools.getButton;
+import static com.blackmomba.supportvolunteer.gui.GuiTools.getTextFieldValueByName;
 
 @Service
 public class AddVehicleForm extends JFrame implements ActionListener {
@@ -28,25 +32,19 @@ public class AddVehicleForm extends JFrame implements ActionListener {
         SpringLayout springLayout = new SpringLayout();
         this.setLayout(springLayout);
         String[] labels = {"No. Immatriculation: ", "Marque: ", "Modele: ", "Annee: ", "NAS Benevole: "};
-        String[] textFieldNames = {"registrationId", "make", "model", "year", "volunteerSin"};
-        int numPairs = labels.length + 1;
-        JPanel p = new JPanel(new SpringLayout());
-        for (int x = 0; x < labels.length; x++) {
-            JLabel l = new JLabel(labels[x], JLabel.TRAILING);
-            p.add(l);
-            JTextField textField = new JTextField(10);
-            textField.setName(textFieldNames[x]);
-            l.setLabelFor(textField);
-            p.add(textField);
-            componentHashMap.put(textField.getName(), textField);
+        String[] fieldNames = {"registrationId", "make", "model", "year", "volunteerSin"};
+        // Make the form
+        JPanel form = GuiTools.getForm(labels, fieldNames);
+        for (Component component : form.getComponents()) {
+            componentHashMap.put(component.getName(), component);
         }
-        JButton addButton = getButton("Ajouter", "add");
-        JButton cancelButton = getButton("Annuler", "cancel");
-        p.add(addButton);
-        p.add(cancelButton);
-        SpringUtilities.makeCompactGrid(p, numPairs, 2, 6, 6, 6, 6);
-        p.setOpaque(true);
-        this.setContentPane(p);
+        JButton addButton = getButton("Ajouter", "add", this);
+        JButton cancelButton = getButton("Annuler", "cancel", this);
+        form.add(addButton);
+        form.add(cancelButton);
+        int numPairs = labels.length + 1;
+        SpringUtilities.makeCompactGrid(form, numPairs, 2, 6, 6, 6, 6);
+        this.setContentPane(form);
         this.pack();
     }
 
@@ -66,11 +64,11 @@ public class AddVehicleForm extends JFrame implements ActionListener {
     private void addSupportRequest() {
         try {
             vehicleRepository.save(new Vehicle(
-                    getTextFieldValueByName("registrationId"),
-                    getTextFieldValueByName("make"),
-                    getTextFieldValueByName("model"),
-                    getTextFieldValueByName("year"),
-                    getTextFieldValueByName("volunteerSin"),
+                    getTextFieldValueByName(componentHashMap, "registrationId"),
+                    getTextFieldValueByName(componentHashMap, "make"),
+                    getTextFieldValueByName(componentHashMap, "model"),
+                    getTextFieldValueByName(componentHashMap, "year"),
+                    getTextFieldValueByName(componentHashMap, "volunteerSin"),
                     null));
         } catch (Exception e) {
             JOptionPane.showMessageDialog(
@@ -82,16 +80,12 @@ public class AddVehicleForm extends JFrame implements ActionListener {
         }
     }
 
-    private JButton getButton(String caption, String actionCommand) {
-        JButton jButton = new JButton(caption);
-        jButton.setActionCommand(actionCommand);
-        jButton.addActionListener(this);
-        return jButton;
-    }
-
-    public String getTextFieldValueByName(String name) {
-        JTextField textField = (JTextField) componentHashMap.getOrDefault(name, null);
-        return textField != null ? textField.getText().trim() : "";
+    public JPanel getExistingRecordsJPanel() {
+        String title = "Vehicules existants";
+        String content = String.format("%-6s %-10s %-10s %-4s %-11s\n",
+                "No. Immatriculation", "Marque", "Modele", "Annee", "NAS Benevole: ");
+        content += vehicleRepository.findAll().stream().map(Vehicle::toString).collect(Collectors.joining("\n"));
+        return GuiTools.getExistingRecordsJPanel(title, content);
     }
 
 }

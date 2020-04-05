@@ -12,8 +12,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
-import java.util.List;
 import java.util.stream.Collectors;
+
+import static com.blackmomba.supportvolunteer.gui.GuiTools.getButton;
+import static com.blackmomba.supportvolunteer.gui.GuiTools.getTextFieldValueByName;
 
 @Service
 public class AddSupportEventForm extends JFrame implements ActionListener {
@@ -28,43 +30,21 @@ public class AddSupportEventForm extends JFrame implements ActionListener {
         this.supportEventRepository = supportEventRepository;
         this.componentHashMap = new HashMap<>();
         this.setTitle("Ajouter un Accompagnement");
-        SpringLayout springLayout = new SpringLayout();
-        this.setLayout(springLayout);
-        JPanel p = new JPanel(new SpringLayout());
-        JLabel existingSupportEventsLabel = new JLabel("Accompagnement existants: ", JLabel.TRAILING);
-        List<SupportEvent> supportEventList = supportEventRepository.findAll();
-        String content = String.format("%-6s %-20s %-20s %-30s %-12s %-12s %-6s\n",
-                "ID", "Heure de debut", "Heure de fin", "Type d'accompagnement", "NAS Benevole", "NAS Client", "ID Equipe");
-        content += supportEventList.stream().map(SupportEvent::toString).collect(Collectors.joining("\n"));
-        JTextArea jTextArea = new JTextArea();
-        jTextArea.setFont(new Font("Courier New", Font.PLAIN, 12));
-        jTextArea.setBounds(0, 0, 678, 382);
-        jTextArea.setText(content);
-        jTextArea.setEditable(false);
-        p.add(existingSupportEventsLabel);
-        existingSupportEventsLabel.setLabelFor(jTextArea);
-        p.add(jTextArea);
-        String[] labels = {"Heure de debut: ", "Heure de fin: ", "Type d'accompagnement: ",
-                "NAS Benevole: ", "NAS Client: "};
-        String[] textFieldNames =
-                {"startTime", "endTime", "supportEventType", "volunteerSin", "clientSin"};
-        int numPairs = labels.length + 2;
-        for (int x = 0; x < labels.length; x++) {
-            JLabel l = new JLabel(labels[x], JLabel.TRAILING);
-            p.add(l);
-            JTextField textField = new JTextField(10);
-            textField.setName(textFieldNames[x]);
-            l.setLabelFor(textField);
-            p.add(textField);
-            componentHashMap.put(textField.getName(), textField);
+        this.setLayout(new SpringLayout());
+        String[] labels = {"Heure de debut: ", "Heure de fin: ", "Type d'accompagnement: ", "NAS Benevole: ", "NAS Client: "};
+        String[] fieldNames = {"startTime", "endTime", "supportEventType", "volunteerSin", "clientSin"};
+        // Make the form
+        JPanel form = GuiTools.getForm(labels, fieldNames);
+        for (Component component : form.getComponents()) {
+            componentHashMap.put(component.getName(), component);
         }
-        JButton addButton = getButton("Ajouter", "add");
-        JButton cancelButton = getButton("Annuler", "cancel");
-        p.add(cancelButton);
-        p.add(addButton);
-        SpringUtilities.makeCompactGrid(p, numPairs, 2, 6, 6, 6, 6);
-        p.setOpaque(true);
-        this.setContentPane(p);
+        JButton addButton = getButton("Ajouter", "add", this);
+        JButton cancelButton = getButton("Annuler", "cancel", this);
+        form.add(cancelButton);
+        form.add(addButton);
+        int numPairs = labels.length + 1;
+        SpringUtilities.makeCompactGrid(form, numPairs, 2, 6, 6, 6, 6);
+        this.setContentPane(form);
         this.pack();
     }
 
@@ -86,11 +66,11 @@ public class AddSupportEventForm extends JFrame implements ActionListener {
         try {
             supportEventRepository.save(new SupportEvent(
                     0L,
-                    formatter.parse(getTextFieldValueByName("startTime")),
-                    formatter.parse(getTextFieldValueByName("endTime")),
-                    getTextFieldValueByName("supportEventType"),
-                    getTextFieldValueByName("volunteerSin"),
-                    getTextFieldValueByName("clientSin"),
+                    formatter.parse(getTextFieldValueByName(componentHashMap, "startTime")),
+                    formatter.parse(getTextFieldValueByName(componentHashMap, "endTime")),
+                    getTextFieldValueByName(componentHashMap, "supportEventType"),
+                    getTextFieldValueByName(componentHashMap, "volunteerSin"),
+                    getTextFieldValueByName(componentHashMap, "clientSin"),
                     null));
         } catch (Exception e) {
             JOptionPane.showMessageDialog(
@@ -102,15 +82,13 @@ public class AddSupportEventForm extends JFrame implements ActionListener {
         }
     }
 
-    private JButton getButton(String caption, String actionCommand) {
-        JButton jButton = new JButton(caption);
-        jButton.setActionCommand(actionCommand);
-        jButton.addActionListener(this);
-        return jButton;
+
+    public JPanel getExistingRecordsJPanel() {
+        String title = "Accompagnement existants";
+        String content = String.format("%-6s %-20s %-20s %-30s %-12s %-12s %-6s\n",
+                "ID", "Heure de debut", "Heure de fin", "Type d'accompagnement", "NAS Benevole", "NAS Client", "ID Equipe");
+        content += supportEventRepository.findAll().stream().map(SupportEvent::toString).collect(Collectors.joining("\n"));
+        return GuiTools.getExistingRecordsJPanel(title, content);
     }
 
-    public String getTextFieldValueByName(String name) {
-        JTextField textField = (JTextField) componentHashMap.getOrDefault(name, null);
-        return textField != null ? textField.getText().trim() : "";
-    }
 }
