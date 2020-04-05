@@ -52,8 +52,8 @@ public class AddVolunteerForm extends JFrame implements ActionListener {
         componentHashMap.put("sector", jComboBox);
         JButton addButton = getButton("Ajouter", "add", this);
         JButton cancelButton = getButton("Annuler", "cancel", this);
-        form.add(cancelButton);
         form.add(addButton);
+        form.add(cancelButton);
         int numPairs = labels.length + 2;
         SpringUtilities.makeCompactGrid(form, numPairs, 2, 6, 6, 6, 6);
         this.setContentPane(form);

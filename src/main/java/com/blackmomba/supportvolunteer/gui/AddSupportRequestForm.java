@@ -40,8 +40,8 @@ public class AddSupportRequestForm extends JFrame implements ActionListener {
         }
         JButton addButton = getButton("Ajouter", "add", this);
         JButton cancelButton = getButton("Annuler", "cancel", this);
-        form.add(addButton);
         form.add(cancelButton);
+        form.add(addButton);
         int numPairs = labels.length + 1;
         SpringUtilities.makeCompactGrid(form, numPairs, 2, 6, 6, 6, 6);
         this.setContentPane(form);
@@ -81,7 +81,7 @@ public class AddSupportRequestForm extends JFrame implements ActionListener {
 
     public JPanel getExistingRecordsJPanel() {
         String title = "Demandes existantes";
-        String content = String.format("%-6s %-20s %-20s %-11s\n",
+        String content = String.format("%-6s %-20s %-30s %-11s\n",
                 "ID", "Date et Heure", "Type d'Accompagnement", "NAS Client");
         content += supportRequestRepository.findAll().stream().map(SupportRequest::toString).collect(Collectors.joining("\n"));
         return GuiTools.getExistingRecordsJPanel(title, content);

@@ -40,8 +40,8 @@ public class AddVehicleForm extends JFrame implements ActionListener {
         }
         JButton addButton = getButton("Ajouter", "add", this);
         JButton cancelButton = getButton("Annuler", "cancel", this);
-        form.add(addButton);
         form.add(cancelButton);
+        form.add(addButton);
         int numPairs = labels.length + 1;
         SpringUtilities.makeCompactGrid(form, numPairs, 2, 6, 6, 6, 6);
         this.setContentPane(form);
@@ -82,8 +82,8 @@ public class AddVehicleForm extends JFrame implements ActionListener {
 
     public JPanel getExistingRecordsJPanel() {
         String title = "Vehicules existants";
-        String content = String.format("%-6s %-10s %-10s %-4s %-11s\n",
-                "No. Immatriculation", "Marque", "Modele", "Annee", "NAS Benevole: ");
+        String content = String.format("%-20s %-10s %-10s %-5s %-11s\n",
+                "No. Immatriculation", "Marque", "Modele", "Annee", "NAS Benevole");
         content += vehicleRepository.findAll().stream().map(Vehicle::toString).collect(Collectors.joining("\n"));
         return GuiTools.getExistingRecordsJPanel(title, content);
     }

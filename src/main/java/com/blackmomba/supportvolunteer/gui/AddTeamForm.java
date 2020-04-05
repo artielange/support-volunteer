@@ -64,8 +64,8 @@ public class AddTeamForm extends JFrame implements ActionListener {
         componentHashMap.put("volunteerSin2", volunteer2JComboBox);
         JButton addButton = getButton("Ajouter", "add", this);
         JButton cancelButton = getButton("Annuler", "cancel", this);
-        p.add(addButton);
         p.add(cancelButton);
+        p.add(addButton);
         SpringUtilities.makeCompactGrid(p, 4, 2, 6, 6, 6, 6);
         p.setOpaque(true);
         this.setContentPane(p);
@@ -113,7 +113,7 @@ public class AddTeamForm extends JFrame implements ActionListener {
 
     public JPanel getExistingRecordsJPanel() {
         String title = "Equipes existants";
-        String content = String.format("%-6s %-10s %-11s %-11s %-1s\n",
+        String content = String.format("%-6s %-15s %-15s %-15s %-1s\n",
                 "ID", "Disponible", "NAS Benevole 1", "NAS Benevole 2", "Secteur");
         content += teamRepository.findAll().stream().map(Team::toString).collect(Collectors.joining("\n"));
         return GuiTools.getExistingRecordsJPanel(title, content);

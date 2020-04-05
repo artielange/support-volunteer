@@ -57,18 +57,18 @@ public class StartupForm extends JFrame implements ActionListener {
         // Put it all together
         this.getContentPane().add(addClientButton);
         this.getContentPane().add(existingClientsJPanel);
-        this.getContentPane().add(addFeedbackButton);
-        this.getContentPane().add(existingFeedbackJPanel);
-        this.getContentPane().add(addSupportEventButton);
-        this.getContentPane().add(existingSupportEventsJPanel);
-        this.getContentPane().add(addSupportRequestButton);
-        this.getContentPane().add(existingSupportRequestJPanel);
-        this.getContentPane().add(addTeamButton);
-        this.getContentPane().add(existingTeamsJPanel);
-        this.getContentPane().add(addVehicleButton);
-        this.getContentPane().add(existingVehiclesJPanel);
         this.getContentPane().add(addVolunteerButton);
         this.getContentPane().add(existingVolunteersJPanel);
+        this.getContentPane().add(addTeamButton);
+        this.getContentPane().add(existingTeamsJPanel);
+        this.getContentPane().add(addSupportRequestButton);
+        this.getContentPane().add(existingSupportRequestJPanel);
+        this.getContentPane().add(addSupportEventButton);
+        this.getContentPane().add(existingSupportEventsJPanel);
+        this.getContentPane().add(addVehicleButton);
+        this.getContentPane().add(existingVehiclesJPanel);
+        this.getContentPane().add(addFeedbackButton);
+        this.getContentPane().add(existingFeedbackJPanel);
         SpringUtilities.makeCompactGrid(this.getContentPane(), 7, 2, 6, 6, 6, 6);
         this.pack();
         this.setVisible(true);

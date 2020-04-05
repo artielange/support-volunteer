@@ -1,7 +1,7 @@
 package com.blackmomba.supportvolunteer.domain;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
@@ -10,7 +10,7 @@ import javax.persistence.Id;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
 @Entity(name = "benevole")
 public class Volunteer {
 
@@ -32,5 +32,11 @@ public class Volunteer {
 
     @Column(name = "NumSecteur")
     private Long sectorId;
+
+    @Override
+    public String toString() {
+        return String.format("%-12s %-40s %-20s %-40s %-10s %-1s",
+                sin, firstName, lastName, address, available, sectorId);
+    }
 
 }

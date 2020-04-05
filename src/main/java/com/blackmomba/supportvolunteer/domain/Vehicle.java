@@ -1,7 +1,7 @@
 package com.blackmomba.supportvolunteer.domain;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
@@ -10,7 +10,7 @@ import javax.persistence.Id;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
 @Entity(name = "voiture")
 public class Vehicle {
 
@@ -22,15 +22,21 @@ public class Vehicle {
     private String make;
 
     @Column(name = "AnneeVehicule")
-    private String model;
+    private String manufacturingYear;
 
     @Column(name = "TypeVehicule")
-    private String manufacturingYear;
+    private String model;
 
     @Column(name = "NASBenevole")
     private String volunteerSin;
 
     @Column(name = "IDEquipe")
     private Long teamId;
+
+    @Override
+    public String toString() {
+        return String.format("%-20s %-10s %-10s %-5s %-11s",
+                registrationNumber, make, model, manufacturingYear, volunteerSin);
+    }
 
 }
