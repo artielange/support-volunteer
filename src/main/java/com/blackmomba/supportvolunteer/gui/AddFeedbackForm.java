@@ -31,7 +31,7 @@ public class AddFeedbackForm extends JFrame implements ActionListener {
         this.componentHashMap = new HashMap<>();
         this.setTitle("Ajouter un commentaire");
         this.setLayout(new SpringLayout());
-        String[] labels = {"Date et Heure: ", "TypeCommentaire: ", "NAS Client: "};
+        String[] labels = {"Date et Heure: ", "Type de Commentaire: ", "NAS Client: "};
         String[] fieldNames = {"dateTime", "feedbackType", "clientNas"};
         // Make the form
         JPanel form = GuiTools.getForm(labels, fieldNames);

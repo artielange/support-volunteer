@@ -28,10 +28,10 @@ public class AddVehicleForm extends JFrame implements ActionListener {
     public AddVehicleForm(VehicleRepository vehicleRepository) {
         this.vehicleRepository = vehicleRepository;
         this.componentHashMap = new HashMap<>();
-        this.setTitle("Ajouter un Vehicule");
+        this.setTitle("Ajouter un Véhicule");
         SpringLayout springLayout = new SpringLayout();
         this.setLayout(springLayout);
-        String[] labels = {"No. Immatriculation: ", "Marque: ", "Modele: ", "Annee: ", "NAS Benevole: "};
+        String[] labels = {"No. Immatriculation: ", "Marque: ", "Modèle: ", "Année: ", "NAS Bénévole: "};
         String[] fieldNames = {"registrationId", "make", "model", "year", "volunteerSin"};
         // Make the form
         JPanel form = GuiTools.getForm(labels, fieldNames);
@@ -81,9 +81,9 @@ public class AddVehicleForm extends JFrame implements ActionListener {
     }
 
     public JPanel getExistingRecordsJPanel() {
-        String title = "Vehicules existants";
+        String title = "Véhicules existants";
         String content = String.format("%-20s %-10s %-10s %-5s %-11s\n",
-                "No. Immatriculation", "Marque", "Modele", "Annee", "NAS Benevole");
+                "No. Immatriculation", "Marque", "Modèle", "Année", "NAS Bénévole");
         content += vehicleRepository.findAll().stream().map(Vehicle::toString).collect(Collectors.joining("\n"));
         return GuiTools.getExistingRecordsJPanel(title, content);
     }

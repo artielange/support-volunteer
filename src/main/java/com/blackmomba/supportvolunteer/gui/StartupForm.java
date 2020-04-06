@@ -3,7 +3,6 @@ package com.blackmomba.supportvolunteer.gui;
 import org.springframework.stereotype.Service;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -34,7 +33,7 @@ public class StartupForm extends JFrame implements ActionListener {
         this.addVehicleForm = addVehicleForm;
         this.addVolunteerForm = addVolunteerForm;
         // Create the frame
-        this.setTitle("Gestion des benevoles pour l'ille de Montreal");
+        this.setTitle("Gestion des bénévoles pour l'île de Montréal");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new SpringLayout());
 
@@ -43,9 +42,9 @@ public class StartupForm extends JFrame implements ActionListener {
         JButton addFeedbackButton = getButton("Ajouter un commentaire", "addFeedback");
         JButton addSupportEventButton = getButton("Ajouter un accompagnement", "addSupportEvent");
         JButton addSupportRequestButton = getButton("Ajouter une demande", "addSupportRequest");
-        JButton addTeamButton = getButton("Creer un equipe", "addTeam");
-        JButton addVehicleButton = getButton("Ajouter un vehicule", "addVehicle");
-        JButton addVolunteerButton = getButton("Ajouter un benevole", "addVolunteer");
+        JButton addTeamButton = getButton("Créer un équipe", "addTeam");
+        JButton addVehicleButton = getButton("Ajouter un véhicule", "addVehicle");
+        JButton addVolunteerButton = getButton("Ajouter un bénévole", "addVolunteer");
         // Create the existing records panels
         JPanel existingClientsJPanel = addClientForm.getExistingRecordsJPanel();
         JPanel existingFeedbackJPanel = addFeedbackForm.getExistingRecordsJPanel();
@@ -76,7 +75,6 @@ public class StartupForm extends JFrame implements ActionListener {
 
     private JButton getButton(String caption, String actionCommand) {
         JButton jButton = new JButton(caption);
-        jButton.setFont(new Font("Serif", Font.PLAIN, 14));
         jButton.setActionCommand(actionCommand);
         jButton.addActionListener(this);
         jButton.setAlignmentX(JButton.CENTER_ALIGNMENT);

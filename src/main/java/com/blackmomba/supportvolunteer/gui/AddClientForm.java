@@ -35,7 +35,7 @@ public class AddClientForm extends JFrame implements ActionListener {
         this.componentHashMap = new HashMap<>();
         this.setTitle("Ajouter un client");
         this.setLayout(new SpringLayout());
-        String[] labels = {"NAS: ", "Nom: ", "Prenom: ", "Date de naissance: ", "Address: "};
+        String[] labels = {"NAS: ", "Nom: ", "Prénom: ", "Date de naissance: ", "Address: "};
         String[] fieldNames = {"sin", "lastName", "firstName", "dob", "address"};
         // Make the form
         JPanel form = GuiTools.getForm(labels, fieldNames);
@@ -102,7 +102,7 @@ public class AddClientForm extends JFrame implements ActionListener {
     public JPanel getExistingRecordsJPanel() {
         String title = "Clients existants";
         String content = String.format("%-12s %-40s %-20s %-40s %-1s\n",
-                "NAS", "Nom", "Date de naissance", "Address", "Secteur");
+                "NAS", "Nom", "Date de naissance", "Adresse", "Secteur");
         content += clientRepository.findAll().stream().map(Client::toString).collect(Collectors.joining("\n"));
         return GuiTools.getExistingRecordsJPanel(title, content);
     }

@@ -34,7 +34,7 @@ public class AddTeamForm extends JFrame implements ActionListener {
             SectorRepository sectorRepository) {
         this.teamRepository = teamRepository;
         this.componentHashMap = new HashMap<>();
-        this.setTitle("Creer un Equipe");
+        this.setTitle("Créer un Équipe");
         this.setLayout(new SpringLayout());
         JPanel p = new JPanel(new SpringLayout());
         JComboBox<ComboItem> volunteer1JComboBox = new JComboBox<>();
@@ -43,11 +43,11 @@ public class AddTeamForm extends JFrame implements ActionListener {
             volunteer1JComboBox.addItem(new ComboItem(volunteer.getSin(), volunteer.getFirstName() + ' ' + volunteer.getLastName()));
             volunteer2JComboBox.addItem(new ComboItem(volunteer.getSin(), volunteer.getFirstName() + ' ' + volunteer.getLastName()));
         }
-        JLabel volunteer1Label = new JLabel("NAS Benevole 1: ", JLabel.TRAILING);
+        JLabel volunteer1Label = new JLabel("NAS Bénévole 1: ", JLabel.TRAILING);
         p.add(volunteer1Label);
         volunteer1Label.setLabelFor(volunteer1JComboBox);
         p.add(volunteer1JComboBox);
-        JLabel volunteer2Label = new JLabel("NAS Benevole 2: ", JLabel.TRAILING);
+        JLabel volunteer2Label = new JLabel("NAS Bénévole 2: ", JLabel.TRAILING);
         p.add(volunteer2Label);
         volunteer2Label.setLabelFor(volunteer2JComboBox);
         p.add(volunteer2JComboBox);
@@ -112,9 +112,9 @@ public class AddTeamForm extends JFrame implements ActionListener {
     }
 
     public JPanel getExistingRecordsJPanel() {
-        String title = "Equipes existants";
+        String title = "Équipes existants";
         String content = String.format("%-6s %-15s %-15s %-15s %-1s\n",
-                "ID", "Disponible", "NAS Benevole 1", "NAS Benevole 2", "Secteur");
+                "ID", "Disponible", "NAS Bénévole 1", "NAS Bénévole 2", "Secteur");
         content += teamRepository.findAll().stream().map(Team::toString).collect(Collectors.joining("\n"));
         return GuiTools.getExistingRecordsJPanel(title, content);
     }

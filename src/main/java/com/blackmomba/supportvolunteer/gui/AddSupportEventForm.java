@@ -31,7 +31,7 @@ public class AddSupportEventForm extends JFrame implements ActionListener {
         this.componentHashMap = new HashMap<>();
         this.setTitle("Ajouter un Accompagnement");
         this.setLayout(new SpringLayout());
-        String[] labels = {"Heure de debut: ", "Heure de fin: ", "Type d'accompagnement: ", "NAS Benevole: ", "NAS Client: "};
+        String[] labels = {"Heure de debut: ", "Heure de fin: ", "Type d'accompagnement: ", "NAS Bénévole: ", "NAS Client: "};
         String[] fieldNames = {"startTime", "endTime", "supportEventType", "volunteerSin", "clientSin"};
         // Make the form
         JPanel form = GuiTools.getForm(labels, fieldNames);
@@ -86,7 +86,7 @@ public class AddSupportEventForm extends JFrame implements ActionListener {
     public JPanel getExistingRecordsJPanel() {
         String title = "Accompagnement existants";
         String content = String.format("%-6s %-20s %-20s %-30s %-12s %-12s %-6s\n",
-                "ID", "Heure de debut", "Heure de fin", "Type d'accompagnement", "NAS Benevole", "NAS Client", "ID Equipe");
+                "ID", "Heure de debut", "Heure de fin", "Type d'accompagnement", "NAS Bénévole", "NAS Client", "ID Équipe");
         content += supportEventRepository.findAll().stream().map(SupportEvent::toString).collect(Collectors.joining("\n"));
         return GuiTools.getExistingRecordsJPanel(title, content);
     }

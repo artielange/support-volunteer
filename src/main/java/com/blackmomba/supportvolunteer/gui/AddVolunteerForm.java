@@ -34,7 +34,7 @@ public class AddVolunteerForm extends JFrame implements ActionListener {
         this.componentHashMap = new HashMap<>();
         this.setTitle("Ajouter un Benevole");
         this.setLayout(new SpringLayout());
-        String[] labels = {"NAS: ", "Nom: ", "Prenom: ", "Date de naissance: ", "Address: "};
+        String[] labels = {"NAS: ", "Nom: ", "Prénom: ", "Date de naissance: ", "Adresse: "};
         String[] fieldNames = {"sin", "lastName", "firstName", "dob", "address"};
         // Make the form
         JPanel form = GuiTools.getForm(labels, fieldNames);
@@ -97,9 +97,9 @@ public class AddVolunteerForm extends JFrame implements ActionListener {
     }
 
     public JPanel getExistingRecordsJPanel() {
-        String title = "Benevoles existantes";
+        String title = "Bénévoles existantes";
         String content = String.format("%-12s %-40s %-20s %-40s %-10s %-1s\n",
-                "NAS", "Nom", "Date de naissance", "Address", "Disponible", "Secteur");
+                "NAS", "Nom", "Date de naissance", "Adresse", "Disponible", "Secteur");
         content += volunteerRepository.findAll().stream().map(Volunteer::toString).collect(Collectors.joining("\n"));
         return GuiTools.getExistingRecordsJPanel(title, content);
     }
