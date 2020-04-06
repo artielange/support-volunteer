@@ -21,7 +21,4 @@ public class Sector {
     @Column(name = "NomSecteur")
     private String name;
 
-    @Column(name = "CodePostal")
-    private String postalCode;
-
 }
