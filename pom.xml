@@ -15,7 +15,7 @@
         <maven.compiler.target>8</maven.compiler.target>
         <spring.boot.version>2.2.6.RELEASE</spring.boot.version>
         <lombok.version>1.18.12</lombok.version>
-        <mysql.jdbc.version>8.0.19</mysql.jdbc.version>
+        <mysql.jdbc.version>8.0.28</mysql.jdbc.version>
         <oracle.jdbc.version>19.3.0.0</oracle.jdbc.version>
         <jaxb.version>2.3.2</jaxb.version>
     </properties>
